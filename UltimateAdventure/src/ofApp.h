@@ -1,8 +1,15 @@
 #pragma once
-
 #include "ofMain.h"
+#include "GameEngine.h"
+#include "Character.h"
+#include "Warrior.h"
+#include "Alexander.h"
+#include "Direction.h"
 
 class ofApp : public ofBaseApp{
+	private:
+		GameEngine engine;
+		Alexander alexander;
 
 	public:
 		void setup();
