@@ -18,5 +18,5 @@ public:
 	GameEngine(const std::vector<Character*> &characters); // takes in a character array and initializes battlefield with characters
 	void MoveCharacters(); // function to move the characters on the board
 	bool MoveCharacter(int direction, int character_index);
-	bool IsValidMove(Direction direction, int character_index);
+	bool IsValidMove(Direction direction, int character_index); // check if the move in that direction is valid
 };

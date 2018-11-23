@@ -7,8 +7,6 @@ GameEngine::GameEngine() {
 GameEngine::GameEngine(const std::vector<Character*> &characters) {
 	std::cout << "Vector Constructor Called!" << std::endl;
 	for (Character* character : characters) {
-		character->setCol(10);
-		character->setRow(10);
 		character_list.push_back(character);
 		cout << "char row: " << character_list[0]->getRow() << endl;
 	}
@@ -41,17 +39,24 @@ bool GameEngine::IsValidMove(Direction direction, int character_index) {
 
 	switch (direction) {
 		case RIGHT: // move right
-			
+			currCol++;
 			break;
 		case LEFT: // move left
-			
+			currCol--;
 			break;
 		case DOWN: // move down
-			
+			currRow++;
 			break;
 		case UP: // move up
-			
+			currRow--;
 			break;
+	}
+
+	if ((currRow >= 25) || (currRow < 0)) {
+		return false;
+	}
+	else if ((currCol >= 25) || (currCol < 0)) {
+		return false;
 	}
 
 	return true;
