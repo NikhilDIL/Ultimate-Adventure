@@ -8,8 +8,14 @@
 
 class ofApp : public ofBaseApp{
 	private:
-		GameEngine engine;
+		GameEngine *engine;
 		Alexander alexander;
+		Alexander alexander2;
+		Alexander* alexptr;
+		std::vector<Character*> units;
+		std::vector<Character*> graphical_units;
+		int current_character;
+
 
 	public:
 		void setup();
