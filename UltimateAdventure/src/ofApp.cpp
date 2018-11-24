@@ -6,13 +6,14 @@ void ofApp::setup(){
 	// create character and add it to the vector
 	Alexander *obj = new Alexander;
 	Character* character = obj;
-	character->setCol(10);
-	character->setRow(10);
+	character->setCol(0);
+	character->setRow(24);
 	character_vector.push_back(character);
+
 	GameEngine gameengine(character_vector);
 	engine = gameengine;
 
-
+	
 	ofSetWindowTitle("Ultimate Adventure");
 	background.load("prolouge.mp3");
 	background.play();
@@ -28,7 +29,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	ofSetColor(255, 255, 255); // white color
-	ofDrawRectangle(150, 50, 650, 650);
+	ofDrawRectangle(200, 75, 650, 650);
 	/*ofSetColor(255, 0, 0);
 	ofDrawRectangle(ofGetMouseX() - 25, ofGetMouseY() - 25, 50, 50);*/
 	alexander.draw();
@@ -38,23 +39,33 @@ void ofApp::draw(){
 void ofApp::keyPressed(int key){
 	int upper_key = toupper(key);
 
+	// First check if that move can be made. If it can be made then move. Else, don't move.
 	// move character on graphical display and array
 	if (upper_key == 'W') {
-		alexander.SetDirection(UP);
-		engine.MoveCharacter(UP, 0);
-		alexander.draw();
+		if (engine.IsValidMove(UP, 0)) {
+			alexander.SetDirection(UP);
+			engine.MoveCharacter(UP, 0);
+			alexander.draw();
+		}
+		
 	} else if (upper_key == 'A') {
-		alexander.SetDirection(LEFT);
-		engine.MoveCharacter(LEFT, 0);
-		alexander.draw();
+		if (engine.IsValidMove(LEFT, 0)) {
+			alexander.SetDirection(LEFT);
+			engine.MoveCharacter(LEFT, 0);
+			alexander.draw();
+		}
 	} else if (upper_key == 'S') {
-		alexander.SetDirection(DOWN);
-		engine.MoveCharacter(DOWN, 0);
-		alexander.draw();
+		if (engine.IsValidMove(DOWN, 0)) {
+			alexander.SetDirection(DOWN);
+			engine.MoveCharacter(DOWN, 0);
+			alexander.draw();
+		}
 	} else if (upper_key == 'D') {
-		alexander.SetDirection(RIGHT);
-		engine.MoveCharacter(RIGHT, 0);
-		alexander.draw();
+		if (engine.IsValidMove(RIGHT, 0)) {
+			alexander.SetDirection(RIGHT);
+			engine.MoveCharacter(RIGHT, 0);
+			alexander.draw();
+		}
 	}
 }
 
