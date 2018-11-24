@@ -1,25 +1,29 @@
 #include "GameEngine.h"
 
-GameEngine::GameEngine() {
-	std::cout << "doge " << std::endl;
-}
+GameEngine::GameEngine() {}
 
 GameEngine::GameEngine(const std::vector<Character*> &characters) {
-	std::cout << "Vector Constructor Called!" << std::endl;
-	for (Character* character : characters) {
+	// add in characters to character_list
+	/*for (Character* character : characters) {
 		character_list.push_back(character);
-		cout << "char row: " << character_list[0]->getRow() << endl;
-	}
-	cout << character_list.size() << endl;
+	}*/
+	character_list = characters;
+	// initialize battlefield 2d array to nullptrs
 	for (int i = 0; i < 25; i++) {
 		for (int j = 0; j < 25; j++) {
 			battlefield[i][j] = nullptr;
 		}
 	}
-	battlefield[0][0] = character_list[0];
-	//battlefield[0][0]->FirstSpecialSkill();
-	//battlefield[0][0]->SecondSpecialSkill();
+	// add characters from the character_list to the battlefield
+	for (Character* character : character_list) {
+		int r = character->getRow();
+		int c = character->getCol();
+		battlefield[r][c] = character;
+	}
+	//battlefield[24][0]->SecondSpecialSkill();
 }
+
+GameEngine::~GameEngine() {}
 
 void GameEngine::MoveCharacters() {
 	for (int i = 0; i < 25; i++) {
@@ -58,6 +62,7 @@ bool GameEngine::IsValidMove(Direction direction, int character_index) {
 	else if ((currCol >= 25) || (currCol < 0)) {
 		return false;
 	}
+	// ADD CODE FOR WHEN THERE ARE OBSTACLES
 
 	return true;
 }
@@ -71,23 +76,30 @@ bool GameEngine::MoveCharacter(int direction, int character_index) {
 	int currCol = character_list[character_index]->getCol();
 	int val = 0;
 
+	// update the location of character in battlefield
 	switch (direction) {
 		case RIGHT: // move right
 			val = currCol + 1;
 			character_list[character_index]->setCol(val);
+			battlefield[currRow][val] = battlefield[currRow][currCol];
 			break;
 		case LEFT: // move left
 			val = currCol - 1;
 			character_list[character_index]->setCol(val);
+			battlefield[currRow][val] = battlefield[currRow][currCol];
 			break;
 		case DOWN: // move down
 			val = currRow + 1;
 			character_list[character_index]->setRow(val);
+			battlefield[val][currCol] = battlefield[currRow][currCol];
 			break;
 		case UP: // move up
 			val = currRow - 1;
 			character_list[character_index]->setRow(val);
+			battlefield[val][currCol] = battlefield[currRow][currCol];
 			break;
 	}
+	battlefield[currRow][currCol] = nullptr; // set old location to nullptr
+
 	return true;
 }
