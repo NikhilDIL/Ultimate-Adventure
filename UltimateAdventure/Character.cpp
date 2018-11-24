@@ -19,4 +19,12 @@ void Character::setCol(int c) {
 	col = c;
 }
 
+void Character::setHealth(int h) {
+	health = h;
+}
+
+int Character::getHealth() {
+	return health;
+}
+
 
