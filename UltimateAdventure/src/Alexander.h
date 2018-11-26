@@ -8,8 +8,6 @@ class Alexander : public Warrior {
 private:
 	int xCoord;
 	int yCoord;
-	int curr_direction;
-
 
 public:
 	Alexander(); // default constructor
@@ -17,8 +15,11 @@ public:
 	void FirstSpecialSkill();
 	void SecondSpecialSkill();
 	void setup();
+	void Draw();
+	void SetUp();
 	void draw();
 	void update();
 	void SetDirection(Direction direction);
+	std::string GetName();
 	ofImage image;
 };

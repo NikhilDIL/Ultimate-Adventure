@@ -1,8 +1,8 @@
 #include "Alexander.h"
 
 Alexander::Alexander() {
-	xCoord = 250;
-	yCoord = 150;
+	xCoord = 200;
+	yCoord = 675;
 }
 
 Alexander::Alexander(int x, int y) {
@@ -23,13 +23,19 @@ void Alexander::setup() {
 	image.resize(50, 50);
 }
 
+void Alexander::Draw() {
+	draw();
+}
+
+void Alexander::SetUp() {
+	setup();
+}
+
 void Alexander::draw() {
 	image.draw(xCoord, yCoord);
 }
 
-void Alexander::update() {
-	cout << "nothing" << endl;
-}
+void Alexander::update() {}
 
 void Alexander::SetDirection(Direction direction) {
 	// If the move is valid on the game engine board, then do the move. else return.
@@ -47,5 +53,9 @@ void Alexander::SetDirection(Direction direction) {
 			yCoord -= 25;
 			break;
 	}
+}
+
+std::string Alexander::GetName() {
+	return "Alexander";
 }
 
