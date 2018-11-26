@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "Direction.h"
 class Character {
 private:
@@ -6,7 +7,7 @@ private:
 	int col;
 	int health;
 public:
-	Character();
+	Character(); // constructor
 	// All common among all unit classes
 	virtual void Attack() = 0;
 	virtual void Defend() = 0;
@@ -14,6 +15,7 @@ public:
 	virtual void SetDirection(Direction direction) = 0;
 	virtual void Draw() = 0;
 	virtual void SetUp() = 0;
+	virtual std::string GetName() = 0; // returns name of character
 
 	// These vary depending on the character
 	virtual void FirstSpecialSkill() = 0;
