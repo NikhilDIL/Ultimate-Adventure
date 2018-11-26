@@ -11,6 +11,8 @@ using std::endl;
 
 class GameEngine {
 private:
+	const int kRowSize = 25;
+	const int kColSize = 25;
 	Character* battlefield[25][25]; // 25x25 grid where the fighting will take place
 	std::vector<Character*> character_list;
 public:

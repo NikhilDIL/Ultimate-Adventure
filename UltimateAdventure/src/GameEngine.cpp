@@ -3,11 +3,8 @@
 GameEngine::GameEngine() {}
 
 GameEngine::GameEngine(const std::vector<Character*> &characters) {
-	// add in characters to character_list
-	/*for (Character* character : characters) {
-		character_list.push_back(character);
-	}*/
-	character_list = characters;
+	character_list = characters; // add in characters to character_list
+
 	// initialize battlefield 2d array to nullptrs
 	for (int i = 0; i < 25; i++) {
 		for (int j = 0; j < 25; j++) {
@@ -20,7 +17,6 @@ GameEngine::GameEngine(const std::vector<Character*> &characters) {
 		int c = character->getCol();
 		battlefield[r][c] = character;
 	}
-	//battlefield[24][0]->SecondSpecialSkill();
 }
 
 GameEngine::~GameEngine() {}
@@ -42,27 +38,30 @@ bool GameEngine::IsValidMove(Direction direction, int character_index) {
 	int currCol = character_list[character_index]->getCol();
 
 	switch (direction) {
-		case RIGHT: // move right
+		case RIGHT:
 			currCol++;
 			break;
-		case LEFT: // move left
+		case LEFT:
 			currCol--;
 			break;
-		case DOWN: // move down
+		case DOWN:
 			currRow++;
 			break;
-		case UP: // move up
+		case UP:
 			currRow--;
 			break;
 	}
 
-	if ((currRow >= 25) || (currRow < 0)) {
+	if ((currRow >= kRowSize) || (currRow < 0)) {
 		return false;
 	}
-	else if ((currCol >= 25) || (currCol < 0)) {
+	else if ((currCol >= kColSize) || (currCol < 0)) {
 		return false;
 	}
-	// ADD CODE FOR WHEN THERE ARE OBSTACLES
+	// If there's a character or obstacle at that location, return false.
+	if (battlefield[currRow][currCol] != nullptr) {
+		return false;
+	}
 
 	return true;
 }
