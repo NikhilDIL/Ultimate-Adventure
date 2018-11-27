@@ -27,6 +27,9 @@ void ofApp::setup() {
 	background.setLoop(true);
 	units[0]->SetUp();
 	units[1]->SetUp();
+
+	attack_button = Button(875, 600, 50, 50);
+	attack_button.setup("AttackButton");
 }
 
 //--------------------------------------------------------------
@@ -45,6 +48,7 @@ void ofApp::draw() {
 	//alexander2.draw();
 	units[0]->Draw();
 	units[1]->Draw();
+	attack_button.draw();
 }
 
 //--------------------------------------------------------------
@@ -105,8 +109,15 @@ void ofApp::mouseDragged(int x, int y, int button) {
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
-	ofSetColor(255, 255, 0);
-	ofDrawRectangle(x, y, 300, 300);
+	int xsomething2 = x;
+	int ysomething2 = y;
+	
+	if (x <= (attack_button.GetXCoord() + attack_button.GetWidth()) && x >= attack_button.GetXCoord()) {
+		if (y <= (attack_button.GetYCoord() + attack_button.GetHeight()) && y >= attack_button.GetYCoord()) {
+
+			std::cout << "IT WORKS!" << std::endl;
+		}
+	}
 }
 
 //--------------------------------------------------------------

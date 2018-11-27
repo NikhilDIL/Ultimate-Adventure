@@ -5,15 +5,15 @@
 #include "Warrior.h"
 #include "Alexander.h"
 #include "Direction.h"
+#include "Button.h"
 
 class ofApp : public ofBaseApp{
 	private:
 		GameEngine *engine;
-		Alexander alexander;
-		Alexander alexander2;
-		Alexander* alexptr;
 		std::vector<Character*> units;
 		std::vector<Character*> graphical_units;
+		std::vector<Button> buttons;
+		Button attack_button;
 		int current_character;
 
 
