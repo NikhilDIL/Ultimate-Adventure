@@ -17,9 +17,12 @@ public:
 	virtual void SetUp() = 0;
 	virtual std::string GetName() = 0; // returns name of character
 
-	// These vary depending on the character
-	virtual void FirstSpecialSkill() = 0;
-	virtual void SecondSpecialSkill() = 0;
+	// Pixel location of where that character is graphically
+	virtual int getGraphicalX() = 0; 
+	virtual int getGraphicalY() = 0;
+
+	// This varies depending on character
+	virtual void SpecialSkill() = 0;
 
 	// Getter and setter functions for row and col
 	void setRow(int r);
