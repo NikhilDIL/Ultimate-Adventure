@@ -10,7 +10,6 @@ void ofApp::setup() {
 	character->setRow(24);
 	units.push_back(character);
 
-
 	Alexander *obj2 = new Alexander(325, 675);
 	Character* character2 = obj2;
 	character2->setCol(5);
@@ -28,8 +27,7 @@ void ofApp::setup() {
 	units[0]->SetUp();
 	units[1]->SetUp();
 
-	attack_button = Button(875, 600, 50, 50);
-	attack_button.setup("AttackButton");
+	initButtons();
 }
 
 //--------------------------------------------------------------
@@ -39,16 +37,17 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
+	// draw battlefield
 	ofSetColor(255, 255, 255); // white color
 	ofDrawRectangle(200, 75, 650, 650);
-	/*ofSetColor(255, 0, 0);
-	ofDrawRectangle(ofGetMouseX() - 25, ofGetMouseY() - 25, 50, 50);*/
-	//alexander.Draw();
-	//graphical_units[0].Draw();
-	//alexander2.draw();
+
+	// draw units
 	units[0]->Draw();
 	units[1]->Draw();
+
+	// draw buttons
 	attack_button.draw();
+	defense_button.draw();
 }
 
 //--------------------------------------------------------------
@@ -109,15 +108,33 @@ void ofApp::mouseDragged(int x, int y, int button) {
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
-	int xsomething2 = x;
-	int ysomething2 = y;
-	
+	// BUTTON PRESSED
 	if (x <= (attack_button.GetXCoord() + attack_button.GetWidth()) && x >= attack_button.GetXCoord()) {
 		if (y <= (attack_button.GetYCoord() + attack_button.GetHeight()) && y >= attack_button.GetYCoord()) {
-
 			std::cout << "IT WORKS!" << std::endl;
 		}
 	}
+
+	if (x <= (defense_button.GetXCoord() + defense_button.GetWidth()) && x >= defense_button.GetXCoord()) {
+		if (y <= (defense_button.GetYCoord() + defense_button.GetHeight()) && y >= defense_button.GetYCoord()) {
+			std::cout << "IT WORKS 2!" << std::endl;
+		}
+	}
+
+	// CHARACTER PRESSED
+	for (Character* hero : units) { // iterate through each character
+		if (x <= (hero->getGraphicalX() + 50) && x >= hero->getGraphicalX()) {
+			if (y <= (hero->getGraphicalY() + 50) && y >= hero->getGraphicalY()) {
+				std::cout << "SELECTED A CHARACTER!" << std::endl;
+				int x = hero->getGraphicalX();
+				int y = hero->getGraphicalY();
+				pixelToIndex(x, y);
+				std::cout << "(" << x << "," << y << ")" << std::endl;
+
+			}
+		}
+	}
+
 }
 
 //--------------------------------------------------------------
@@ -148,4 +165,17 @@ void ofApp::gotMessage(ofMessage msg) {
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo) {
 
+}
+
+void ofApp::initButtons() {
+	attack_button = Button(875, 600, 50, 50);
+	attack_button.setup("AttackButton");
+	defense_button = Button(950, 600, 50, 50);
+	defense_button.setup("DefenseButton");
+}
+
+void ofApp::pixelToIndex(int &pixel_X, int &pixel_Y) {
+	// 200, 675 is bottom left in graphical (0, 0)
+	pixel_X = (pixel_X - 200) / 25;
+	pixel_Y = (675 - pixel_Y) / 25;
 }

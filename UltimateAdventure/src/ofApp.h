@@ -11,12 +11,15 @@ class ofApp : public ofBaseApp{
 	private:
 		GameEngine *engine;
 		std::vector<Character*> units;
-		std::vector<Character*> graphical_units;
 		std::vector<Button> buttons;
-		Button attack_button;
 		int current_character;
 
-
+		// all buttons in game
+		Button attack_button;
+		Button defense_button;
+		Button special_skill;
+		Button special_attack;
+		
 	public:
 		void setup();
 		void update();
@@ -33,6 +36,10 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+
+		// My Helper Methods
+		void initButtons();
+		void pixelToIndex(int &pixel_X, int &pixel_Y);
 
 		ofSoundPlayer background;
 		
