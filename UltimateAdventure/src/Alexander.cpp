@@ -10,13 +10,22 @@ Alexander::Alexander(int x, int y) {
 	yCoord = y;
 }
 
-void Alexander::FirstSpecialSkill() {
+void Alexander::Attack() {
+	cout << "doge attack" << endl;
+}
+
+void Alexander::Defend() {
+	cout << "doge defend" << endl;
+}
+
+void Alexander::StrongAttack() {
+	cout << "doge strong attack" << endl;
+}
+
+void Alexander::SpecialSkill() {
 	cout << "Hello World. I'm Alexander!" << endl;
 }
 
-void Alexander::SecondSpecialSkill() {
-	cout << "Hello World. I'm Alexander!. Special Second!" << endl;
-}
 
 void Alexander::setup() {
 	image.load("randpic.png");
@@ -59,3 +68,10 @@ std::string Alexander::GetName() {
 	return "Alexander";
 }
 
+int Alexander::getGraphicalX() {
+	return xCoord;
+}
+
+int Alexander::getGraphicalY() {
+	return yCoord;
+}

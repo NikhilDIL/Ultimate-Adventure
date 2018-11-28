@@ -1,10 +1,9 @@
 #pragma once
 #include "ofMain.h"
-#include "Warrior.h"
+#include "Character.h"
 #include "Direction.h"
 
-class Warrior;
-class Alexander : public Warrior {
+class Alexander : public Character {
 private:
 	int xCoord;
 	int yCoord;
@@ -12,14 +11,22 @@ private:
 public:
 	Alexander(); // default constructor
 	Alexander(int x, int y);
-	void FirstSpecialSkill();
-	void SecondSpecialSkill();
+	void Attack();
+	void Defend();
+	void StrongAttack();
+	void SpecialSkill();
+
+	void SetUp();
 	void setup();
 	void Draw();
-	void SetUp();
 	void draw();
 	void update();
 	void SetDirection(Direction direction);
 	std::string GetName();
+
+	int getGraphicalX();
+	int getGraphicalY();
+
+
 	ofImage image;
 };
