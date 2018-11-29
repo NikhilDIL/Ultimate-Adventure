@@ -3,15 +3,17 @@
 Alexander::Alexander() {
 	xCoord = 200;
 	yCoord = 675;
+	steps_per_turn = 2;
 }
 
 Alexander::Alexander(int x, int y) {
 	xCoord = x;
 	yCoord = y;
+	steps_per_turn = 2;
 }
 
-void Alexander::Attack() {
-	cout << "doge attack" << endl;
+int Alexander::Attack() {
+	return 15;
 }
 
 void Alexander::Defend() {
@@ -26,10 +28,9 @@ void Alexander::SpecialSkill() {
 	cout << "Hello World. I'm Alexander!" << endl;
 }
 
-
 void Alexander::setup() {
 	image.load("randpic.png");
-	image.resize(50, 50);
+	image.resize(25, 25);
 }
 
 void Alexander::Draw() {
@@ -74,4 +75,8 @@ int Alexander::getGraphicalX() {
 
 int Alexander::getGraphicalY() {
 	return yCoord;
+}
+
+int Alexander::GetStepsPerTurn() {
+	return steps_per_turn;
 }
