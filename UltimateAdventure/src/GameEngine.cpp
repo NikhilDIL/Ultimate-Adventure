@@ -117,22 +117,21 @@ bool GameEngine::IsValidAttack(int attack_x, int attack_y, int victim_x, int vic
 			return true;
 		}
 	}
-	else if (!(back >= 25) && !(back < 0)) {
+	if (!(back >= 25) && !(back < 0)) {
 		if (battlefield[victim_x][victim_y] == battlefield[back][attack_y]) {
 			return true;
 		}
 	}
-	else if (!(left >= 25) && !(left < 0)) {
+	if (!(left >= 25) && !(left < 0)) {
 		if (battlefield[victim_x][victim_y] == battlefield[attack_x][left]) {
 			return true;
 		}
 	}
-	else if (!(right >= 25) && !(right < 0)) {
+	if (!(right >= 25) && !(right < 0)) {
 		if (battlefield[victim_x][victim_y] == battlefield[attack_x][right]) {
 			return true;
 		}
 	}
-
 	return false;
 }
 
@@ -144,6 +143,7 @@ bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int vic
 		int damage = battlefield[attack_x][attack_y]->Attack();
 		int victim_health = battlefield[victim_x][victim_y]->getHealth();
 		int new_health = victim_health - damage;
+		std::cout << "new_health " << new_health << std::endl;
 		battlefield[victim_x][victim_y]->setHealth(new_health);
 
 		if (battlefield[victim_x][victim_y]->getHealth() <= 0) {

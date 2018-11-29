@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include "Character.h"
-#include "Warrior.h"
 #include "Alexander.h"
 #include "Direction.h"
 
