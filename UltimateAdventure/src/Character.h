@@ -6,10 +6,12 @@ private:
 	int row;
 	int col;
 	int health;
+	int attack_power;
+
 public:
 	Character(); // constructor
 	// All common among all unit classes
-	virtual void Attack() = 0;
+	virtual int Attack() = 0;
 	virtual void Defend() = 0;
 	virtual void StrongAttack() = 0;
 	virtual void SetDirection(Direction direction) = 0;
