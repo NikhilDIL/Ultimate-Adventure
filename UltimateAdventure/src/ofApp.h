@@ -2,7 +2,6 @@
 #include "ofMain.h"
 #include "GameEngine.h"
 #include "Character.h"
-#include "Warrior.h"
 #include "Alexander.h"
 #include "Direction.h"
 #include "Button.h"
@@ -13,6 +12,8 @@ class ofApp : public ofBaseApp{
 		std::vector<Character*> units;
 		std::vector<Button> buttons;
 		int current_character;
+		Character* s_character;
+		int selected_character = -1;
 
 		// all buttons in game
 		Button attack_button;

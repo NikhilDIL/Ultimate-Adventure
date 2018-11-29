@@ -8,12 +8,14 @@ void ofApp::setup() {
 	Character* character = obj;
 	character->setCol(0);
 	character->setRow(24);
+	character->setHealth(50);
 	units.push_back(character);
 
 	Alexander *obj2 = new Alexander(325, 675);
 	Character* character2 = obj2;
 	character2->setCol(5);
 	character2->setRow(24);
+	character2->setHealth(50);
 	units.push_back(character2);
 
 	// create a new game engine
@@ -54,7 +56,7 @@ void ofApp::draw() {
 void ofApp::keyPressed(int key) {
 	int upper_key = toupper(key);
 
-	// First check if that move can be made. If it can be made then move. Else, don't move.
+	// first check if that move can be made. If it can be made then move. Else, don't move.
 	// move character on graphical display and array
 	if (upper_key == 'W') {
 		if (engine->IsValidMove(UP, current_character)) {
@@ -84,6 +86,7 @@ void ofApp::keyPressed(int key) {
 			units[current_character]->Draw();
 		}
 	}
+
 	current_character++;
 	if (current_character >= units.size()) {
 		current_character = 0;
@@ -103,7 +106,7 @@ void ofApp::mouseMoved(int x, int y) {
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button) {
-
+	units[0]->Draw();
 }
 
 //--------------------------------------------------------------
@@ -111,7 +114,24 @@ void ofApp::mousePressed(int x, int y, int button) {
 	// BUTTON PRESSED
 	if (x <= (attack_button.GetXCoord() + attack_button.GetWidth()) && x >= attack_button.GetXCoord()) {
 		if (y <= (attack_button.GetYCoord() + attack_button.GetHeight()) && y >= attack_button.GetYCoord()) {
-			std::cout << "IT WORKS!" << std::endl;
+			if (selected_character != -1) { // if the user has selected a character
+				// conduct battle between the current unit and the selected unit
+				int attack_x = units[current_character]->getRow();
+				int attack_y = units[current_character]->getCol();
+				int victim_x = units[selected_character]->getRow();
+				int victim_y = units[selected_character]->getCol();
+
+				std::cout << "attack_x " << attack_x << std::endl;
+				std::cout << "attack_y " << attack_y << std::endl;
+				std::cout << "victim_x " << victim_x << std::endl;
+				std::cout << "victim_y " << victim_y << std::endl;
+
+
+				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y);
+				// if ConductBattle was successful, do an animation graphically for the attack
+				// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
+				selected_character = -1;
+			}
 		}
 	}
 
@@ -122,18 +142,29 @@ void ofApp::mousePressed(int x, int y, int button) {
 	}
 
 	// CHARACTER PRESSED
+	for (int i = 0; i < units.size(); i++) {
+		if (x <= (units[i]->getGraphicalX() + 50) && x >= units[i]->getGraphicalX()) {
+			if (y <= (units[i]->getGraphicalY() + 50) && y >= units[i]->getGraphicalY()) {
+				std::cout << "SELECTED A CHARACTER!" << std::endl;
+				// When we select the character, get their index in the units vector
+				selected_character = i;
+				break;
+			}
+		}
+	}
+
+	/*// CHARACTER PRESSED
 	for (Character* hero : units) { // iterate through each character
 		if (x <= (hero->getGraphicalX() + 50) && x >= hero->getGraphicalX()) {
 			if (y <= (hero->getGraphicalY() + 50) && y >= hero->getGraphicalY()) {
 				std::cout << "SELECTED A CHARACTER!" << std::endl;
-				int x = hero->getGraphicalX();
-				int y = hero->getGraphicalY();
-				pixelToIndex(x, y);
-				std::cout << "(" << x << "," << y << ")" << std::endl;
-
+				// When we select the character, get their index in the units vector
+				int x = hero->getRow();
+				int y = hero->getCol();
+				
 			}
 		}
-	}
+	}*/
 
 }
 
