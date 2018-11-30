@@ -4,17 +4,17 @@
 void ofApp::setup() {
 	current_character = 0;
 	// create character and add it to the vector
-	Alexander *obj = new Alexander;
+	Alexander *obj = new Alexander(200, 600);
 	Character* character = obj;
 	character->setCol(0);
-	character->setRow(24);
+	character->setRow(9);
 	character->setHealth(50);
 	units.push_back(character);
 
-	Alexander *obj2 = new Alexander(325, 675);
+	Alexander *obj2 = new Alexander(300, 600);
 	Character* character2 = obj2;
-	character2->setCol(5);
-	character2->setRow(24);
+	character2->setCol(2);
+	character2->setRow(9);
 	character2->setHealth(50);
 	units.push_back(character2);
 
@@ -39,9 +39,12 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	// draw battlefield
-	ofSetColor(255, 255, 255); // white color
-	ofDrawRectangle(200, 75, 650, 650);
+	// draw graphical battlefield
+	//ofSetColor(255, 255, 255); // white color
+	//ofDrawRectangle(200, 150, 500, 500);
+	ground.load("stone.jpg");
+	ground.resize(500, 500);
+	ground.draw(200, 150);
 
 	// draw units
 	units[0]->Draw();
@@ -50,6 +53,8 @@ void ofApp::draw() {
 	// draw buttons
 	attack_button.draw();
 	defense_button.draw();
+	special_skill.draw();
+	special_attack.draw();
 }
 
 //--------------------------------------------------------------
@@ -129,6 +134,7 @@ void ofApp::mousePressed(int x, int y, int button) {
 
 				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y);
 				// if ConductBattle was successful, do an animation graphically for the attack
+				//ofDrawRectangle(100, 150, 50, 50);
 				// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
 				selected_character = -1;
 			}
@@ -152,20 +158,6 @@ void ofApp::mousePressed(int x, int y, int button) {
 			}
 		}
 	}
-
-	/*// CHARACTER PRESSED
-	for (Character* hero : units) { // iterate through each character
-		if (x <= (hero->getGraphicalX() + 50) && x >= hero->getGraphicalX()) {
-			if (y <= (hero->getGraphicalY() + 50) && y >= hero->getGraphicalY()) {
-				std::cout << "SELECTED A CHARACTER!" << std::endl;
-				// When we select the character, get their index in the units vector
-				int x = hero->getRow();
-				int y = hero->getCol();
-				
-			}
-		}
-	}*/
-
 }
 
 //--------------------------------------------------------------
@@ -199,10 +191,14 @@ void ofApp::dragEvent(ofDragInfo dragInfo) {
 }
 
 void ofApp::initButtons() {
-	attack_button = Button(875, 600, 50, 50);
+	attack_button = Button(725, 530, 50, 50);
 	attack_button.setup("AttackButton");
-	defense_button = Button(950, 600, 50, 50);
+	defense_button = Button(800, 530, 50, 50);
 	defense_button.setup("DefenseButton");
+	special_skill = Button(725, 600, 50, 50);
+	special_skill.setup("SpecialSkill");
+	special_attack = Button(800, 600, 50, 50);
+	special_attack.setup("SpecialAttack");
 }
 
 void ofApp::pixelToIndex(int &pixel_X, int &pixel_Y) {

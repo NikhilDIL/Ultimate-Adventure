@@ -43,5 +43,6 @@ class ofApp : public ofBaseApp{
 		void pixelToIndex(int &pixel_X, int &pixel_Y);
 
 		ofSoundPlayer background;
+		ofImage ground;
 		
 };
