@@ -10,9 +10,9 @@ using std::endl;
 
 class GameEngine {
 private:
-	const int kRowSize = 25;
-	const int kColSize = 25;
-	Character* battlefield[25][25]; // 25x25 grid where the fighting will take place
+	const int kRowSize = 10;
+	const int kColSize = 10;
+	Character* battlefield[10][10]; // 25x25 grid where the fighting will take place
 	std::vector<Character*> character_list; // list of all heroes on the board
 
 public:

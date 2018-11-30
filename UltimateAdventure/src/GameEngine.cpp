@@ -6,8 +6,8 @@ GameEngine::GameEngine(const std::vector<Character*> &characters) {
 	character_list = characters; // add in characters to character_list
 
 	// initialize battlefield 2d array to nullptrs
-	for (int i = 0; i < 25; i++) {
-		for (int j = 0; j < 25; j++) {
+	for (int i = 0; i < kRowSize; i++) {
+		for (int j = 0; j < kColSize; j++) {
 			battlefield[i][j] = nullptr;
 		}
 	}
@@ -112,22 +112,22 @@ bool GameEngine::IsValidAttack(int attack_x, int attack_y, int victim_x, int vic
 	int left = attack_y - character_range;
 	int right = attack_y + character_range;
 
-	if (!(front >= 25) && !(front < 0)) {
+	if (!(front >= kRowSize) && !(front < 0)) {
 		if (battlefield[victim_x][victim_y] == battlefield[front][attack_y]) {
 			return true;
 		}
 	}
-	if (!(back >= 25) && !(back < 0)) {
+	if (!(back >= kColSize) && !(back < 0)) {
 		if (battlefield[victim_x][victim_y] == battlefield[back][attack_y]) {
 			return true;
 		}
 	}
-	if (!(left >= 25) && !(left < 0)) {
+	if (!(left >= kColSize) && !(left < 0)) {
 		if (battlefield[victim_x][victim_y] == battlefield[attack_x][left]) {
 			return true;
 		}
 	}
-	if (!(right >= 25) && !(right < 0)) {
+	if (!(right >= kColSize) && !(right < 0)) {
 		if (battlefield[victim_x][victim_y] == battlefield[attack_x][right]) {
 			return true;
 		}
