@@ -9,8 +9,8 @@ using std::cout;
 using std::endl;
 
 //========================================================================
-int main( ){
-	ofSetupOpenGL(1024,768, OF_WINDOW);			// <-------- setup the GL context
+int main( ){ //1024 768
+	ofSetupOpenGL(950,768, OF_WINDOW);			// <-------- setup the GL context
 	ofSetFrameRate(30);
 
 	// this kicks off the running of my app
