@@ -1,10 +1,6 @@
 #include "Alexander.h"
 
-Alexander::Alexander() {
-	xCoord = 200;
-	yCoord = 675;
-	steps_per_turn = 2;
-}
+Alexander::Alexander() {}
 
 Alexander::Alexander(int x, int y) {
 	xCoord = x;
@@ -30,7 +26,7 @@ void Alexander::SpecialSkill() {
 
 void Alexander::setup() {
 	image.load("randpic.png");
-	image.resize(25, 25);
+	image.resize(50, 50);
 }
 
 void Alexander::Draw() {
@@ -51,16 +47,16 @@ void Alexander::SetDirection(Direction direction) {
 	// If the move is valid on the game engine board, then do the move. else return.
 	switch (direction) { 
 		case RIGHT: // move right
-			xCoord += 25;
+			xCoord += 50;
 			break;
 		case LEFT: // move left
-			xCoord -= 25;
+			xCoord -= 50;
 			break;
 		case DOWN: // move down
-			yCoord += 25;
+			yCoord += 50;
 			break;
 		case UP: // move up
-			yCoord -= 25;
+			yCoord -= 50;
 			break;
 	}
 }
