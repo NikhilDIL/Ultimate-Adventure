@@ -6,20 +6,27 @@
 #include "Direction.h"
 #include "Button.h"
 
+typedef enum {
+	HERO_TURN = 0,
+	ENEMYTURN
+} TeamTurn;
+
 class ofApp : public ofBaseApp{
 	private:
 		GameEngine *engine;
 		std::vector<Character*> units;
 		std::vector<Button> buttons;
-		int current_character;
+		int current_character = -1; // character the player has selected to give commands to
 		Character* s_character;
-		int selected_character = -1;
+		int selected_character = -1; // character of the opposing team
 
 		// all buttons in game
 		Button attack_button;
 		Button defense_button;
 		Button special_skill;
 		Button special_attack;
+
+		TeamTurn turn; // current team's turn
 		
 	public:
 		void setup();

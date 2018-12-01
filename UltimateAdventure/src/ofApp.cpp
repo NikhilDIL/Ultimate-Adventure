@@ -2,16 +2,16 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	current_character = 0;
+	current_character;
 	// create character and add it to the vector
-	Alexander *obj = new Alexander(200, 600);
+	Alexander *obj = new Alexander(200, 600, 'H');
 	Character* character = obj;
 	character->setCol(0);
 	character->setRow(9);
 	character->setHealth(50);
 	units.push_back(character);
 
-	Alexander *obj2 = new Alexander(300, 600);
+	Alexander *obj2 = new Alexander(300, 600, 'E');
 	Character* character2 = obj2;
 	character2->setCol(2);
 	character2->setRow(9);
@@ -30,6 +30,8 @@ void ofApp::setup() {
 	units[1]->SetUp();
 
 	initButtons();
+
+	turn = HERO_TURN; // Hero's play first
 }
 
 //--------------------------------------------------------------
@@ -63,40 +65,43 @@ void ofApp::keyPressed(int key) {
 
 	// first check if that move can be made. If it can be made then move. Else, don't move.
 	// move character on graphical display and array
-	if (upper_key == 'W') {
-		if (engine->IsValidMove(UP, current_character)) {
-			units[current_character]->SetDirection(UP);
-			engine->MoveCharacter(UP, current_character);
-			units[current_character]->Draw();
+	//std::cout << "curr char: " << current_character << std::endl;
+	if (current_character != -1) { // making sure player has selected a character
+		if (upper_key == 'W') {
+			if (engine->IsValidMove(UP, current_character)) {
+				units[current_character]->SetDirection(UP);
+				engine->MoveCharacter(UP, current_character);
+				units[current_character]->Draw();
+			}
+		}
+		else if (upper_key == 'A') {
+			if (engine->IsValidMove(LEFT, current_character)) {
+				units[current_character]->SetDirection(LEFT);
+				engine->MoveCharacter(LEFT, current_character);
+				units[current_character]->Draw();
+			}
+		}
+		else if (upper_key == 'S') {
+			if (engine->IsValidMove(DOWN, current_character)) {
+				units[current_character]->SetDirection(DOWN);
+				engine->MoveCharacter(DOWN, current_character);
+				units[current_character]->Draw();
+			}
+		}
+		else if (upper_key == 'D') {
+			if (engine->IsValidMove(RIGHT, current_character)) {
+				units[current_character]->SetDirection(RIGHT);
+				engine->MoveCharacter(RIGHT, current_character);
+				units[current_character]->Draw();
+			}
 		}
 	}
-	else if (upper_key == 'A') {
-		if (engine->IsValidMove(LEFT, current_character)) {
-			units[current_character]->SetDirection(LEFT);
-			engine->MoveCharacter(LEFT, current_character);
-			units[current_character]->Draw();
-		}
-	}
-	else if (upper_key == 'S') {
-		if (engine->IsValidMove(DOWN, current_character)) {
-			units[current_character]->SetDirection(DOWN);
-			engine->MoveCharacter(DOWN, current_character);
-			units[current_character]->Draw();
-		}
-	}
-	else if (upper_key == 'D') {
-		if (engine->IsValidMove(RIGHT, current_character)) {
-			units[current_character]->SetDirection(RIGHT);
-			engine->MoveCharacter(RIGHT, current_character);
-			units[current_character]->Draw();
-		}
-	}
-
-	current_character++;
+	
+	/*current_character++;
 	if (current_character >= units.size()) {
 		current_character = 0;
 		// CHANGE TO ENEMY TURN STATE
-	}
+	}*/
 }
 
 //--------------------------------------------------------------
@@ -152,8 +157,12 @@ void ofApp::mousePressed(int x, int y, int button) {
 		if (x <= (units[i]->getGraphicalX() + 50) && x >= units[i]->getGraphicalX()) {
 			if (y <= (units[i]->getGraphicalY() + 50) && y >= units[i]->getGraphicalY()) {
 				std::cout << "SELECTED A CHARACTER!" << std::endl;
-				// When we select the character, get their index in the units vector
-				selected_character = i;
+				if (units[i]->GetType() == 'H' && turn == HERO_TURN) { // player selected a hero on Hero turn
+					current_character = i;
+				} else { // if we are controlling a character, allow another character to be selected so we can attack/do things to it.
+					selected_character = i;
+				}
+				
 				break;
 			}
 		}
