@@ -18,6 +18,7 @@ public:
 	virtual void Draw() = 0;
 	virtual void SetUp() = 0;
 	virtual std::string GetName() = 0; // returns name of character
+	virtual char GetType() = 0; // Hero or Enemy type
 
 	// Pixel location of where that character is graphically
 	virtual int getGraphicalX() = 0; 
