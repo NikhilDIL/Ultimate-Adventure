@@ -2,10 +2,10 @@
 
 Alexander::Alexander() {}
 
-Alexander::Alexander(int x, int y) {
+Alexander::Alexander(int x, int y, char t) {
 	xCoord = x;
 	yCoord = y;
-	steps_per_turn = 2;
+	type = t;
 }
 
 int Alexander::Attack() {
@@ -75,4 +75,8 @@ int Alexander::getGraphicalY() {
 
 int Alexander::GetStepsPerTurn() {
 	return steps_per_turn;
+}
+
+char Alexander::GetType() {
+	return type;
 }
