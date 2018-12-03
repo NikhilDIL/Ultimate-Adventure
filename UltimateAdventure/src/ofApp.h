@@ -8,14 +8,13 @@
 
 typedef enum {
 	HERO_TURN = 0,
-	ENEMYTURN
+	ENEMY_TURN
 } TeamTurn;
 
 class ofApp : public ofBaseApp{
 	private:
 		GameEngine *engine;
 		std::vector<Character*> units;
-		std::vector<Button> buttons;
 		int current_character = -1; // character the player has selected to give commands to
 		Character* s_character;
 		int selected_character = -1; // character of the opposing team

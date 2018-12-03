@@ -11,7 +11,7 @@ void ofApp::setup() {
 	character->setHealth(50);
 	units.push_back(character);
 
-	Alexander *obj2 = new Alexander(300, 600, 'E');
+	Alexander *obj2 = new Alexander(300, 600, 'H');
 	Character* character2 = obj2;
 	character2->setCol(2);
 	character2->setRow(9);
@@ -42,8 +42,6 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 	// draw graphical battlefield
-	//ofSetColor(255, 255, 255); // white color
-	//ofDrawRectangle(200, 150, 500, 500);
 	ground.load("stone.jpg");
 	ground.resize(500, 500);
 	ground.draw(200, 150);
@@ -65,35 +63,37 @@ void ofApp::keyPressed(int key) {
 
 	// first check if that move can be made. If it can be made then move. Else, don't move.
 	// move character on graphical display and array
-	//std::cout << "curr char: " << current_character << std::endl;
 	if (current_character != -1) { // making sure player has selected a character
-		if (upper_key == 'W') {
-			if (engine->IsValidMove(UP, current_character)) {
-				units[current_character]->SetDirection(UP);
-				engine->MoveCharacter(UP, current_character);
-				units[current_character]->Draw();
+		if (units[current_character]->GetStepsPerTurn() > 0) { // given character cannot more more than these many steps.
+			if (upper_key == 'W') {
+				if (engine->IsValidMove(UP, current_character)) {
+					units[current_character]->SetDirection(UP);
+					engine->MoveCharacter(UP, current_character);
+					units[current_character]->DecrementStepsPerTurn();
+				}
 			}
-		}
-		else if (upper_key == 'A') {
-			if (engine->IsValidMove(LEFT, current_character)) {
-				units[current_character]->SetDirection(LEFT);
-				engine->MoveCharacter(LEFT, current_character);
-				units[current_character]->Draw();
+			else if (upper_key == 'A') {
+				if (engine->IsValidMove(LEFT, current_character)) {
+					units[current_character]->SetDirection(LEFT);
+					engine->MoveCharacter(LEFT, current_character);
+					units[current_character]->DecrementStepsPerTurn();
+				}
 			}
-		}
-		else if (upper_key == 'S') {
-			if (engine->IsValidMove(DOWN, current_character)) {
-				units[current_character]->SetDirection(DOWN);
-				engine->MoveCharacter(DOWN, current_character);
-				units[current_character]->Draw();
+			else if (upper_key == 'S') {
+				if (engine->IsValidMove(DOWN, current_character)) {
+					units[current_character]->SetDirection(DOWN);
+					engine->MoveCharacter(DOWN, current_character);
+					units[current_character]->DecrementStepsPerTurn();
+				}
 			}
-		}
-		else if (upper_key == 'D') {
-			if (engine->IsValidMove(RIGHT, current_character)) {
-				units[current_character]->SetDirection(RIGHT);
-				engine->MoveCharacter(RIGHT, current_character);
-				units[current_character]->Draw();
+			else if (upper_key == 'D') {
+				if (engine->IsValidMove(RIGHT, current_character)) {
+					units[current_character]->SetDirection(RIGHT);
+					engine->MoveCharacter(RIGHT, current_character);
+					units[current_character]->DecrementStepsPerTurn();
+				}
 			}
+			units[current_character]->Draw();
 		}
 	}
 	
@@ -139,13 +139,13 @@ void ofApp::mousePressed(int x, int y, int button) {
 
 				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y);
 				// if ConductBattle was successful, do an animation graphically for the attack
-				//ofDrawRectangle(100, 150, 50, 50);
 				// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
 				selected_character = -1;
 			}
 		}
 	}
 
+	// DEFENSE BUTTON
 	if (x <= (defense_button.GetXCoord() + defense_button.GetWidth()) && x >= defense_button.GetXCoord()) {
 		if (y <= (defense_button.GetYCoord() + defense_button.GetHeight()) && y >= defense_button.GetYCoord()) {
 			std::cout << "IT WORKS 2!" << std::endl;
@@ -157,7 +157,9 @@ void ofApp::mousePressed(int x, int y, int button) {
 		if (x <= (units[i]->getGraphicalX() + 50) && x >= units[i]->getGraphicalX()) {
 			if (y <= (units[i]->getGraphicalY() + 50) && y >= units[i]->getGraphicalY()) {
 				std::cout << "SELECTED A CHARACTER!" << std::endl;
-				if (units[i]->GetType() == 'H' && turn == HERO_TURN) { // player selected a hero on Hero turn
+				if (units[i]->GetType() == 'H' && turn == HERO_TURN) { // a player selected a hero on Hero turn
+					current_character = i;
+				} else if (units[i]->GetType() == 'E' && turn == ENEMY_TURN) { // a player selected a enemy on Enemy turn 
 					current_character = i;
 				} else { // if we are controlling a character, allow another character to be selected so we can attack/do things to it.
 					selected_character = i;
