@@ -8,7 +8,7 @@ private:
 	int xCoord;
 	int yCoord;
 	char type;
-	int steps_per_turn;
+	int steps_per_turn = 3;
 
 public:
 	Alexander(); // default constructor
@@ -27,6 +27,7 @@ public:
 	void SetDirection(Direction direction);
 	std::string GetName();
 	int GetStepsPerTurn();
+	void DecrementStepsPerTurn();
 
 	int getGraphicalX();
 	int getGraphicalY();

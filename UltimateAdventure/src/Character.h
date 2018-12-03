@@ -19,6 +19,8 @@ public:
 	virtual void SetUp() = 0;
 	virtual std::string GetName() = 0; // returns name of character
 	virtual char GetType() = 0; // Hero or Enemy type
+	virtual int GetStepsPerTurn() = 0;
+	virtual void DecrementStepsPerTurn() = 0;
 
 	// Pixel location of where that character is graphically
 	virtual int getGraphicalX() = 0; 

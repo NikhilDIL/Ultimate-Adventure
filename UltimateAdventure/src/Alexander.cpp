@@ -77,6 +77,10 @@ int Alexander::GetStepsPerTurn() {
 	return steps_per_turn;
 }
 
+void Alexander::DecrementStepsPerTurn() {
+	steps_per_turn--;
+}
+
 char Alexander::GetType() {
 	return type;
 }
