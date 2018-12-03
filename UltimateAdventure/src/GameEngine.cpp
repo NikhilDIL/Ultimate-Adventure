@@ -22,18 +22,10 @@ GameEngine::GameEngine(const std::vector<Character*> &characters) {
 
 GameEngine::~GameEngine() {}
 
-void GameEngine::MoveCharacters() {
-	for (int i = 0; i < 25; i++) {
-		for (int j = 0; j < 25; j++) {
-			// if character exists at that location, move the character
-			if (battlefield[i][j] != nullptr) {
-				std::cout << "Moved Character" << std::endl;
-			}
-		}
-	}
-}
+void GameEngine::MoveCharacters() {}
 
 bool GameEngine::IsValidMove(Direction direction, int character_index) {
+	// CHECK IF CHARACTER HAS ANY MOVES LEFT FOR THE TURN. 3 FOR WARRIOR, 2 FOR MAGE, 1 FOR TANK
 	// get current row and column location of character
 	int currRow = character_list[character_index]->getRow();
 	int currCol = character_list[character_index]->getCol();
@@ -64,7 +56,6 @@ bool GameEngine::IsValidMove(Direction direction, int character_index) {
 	if (battlefield[currRow][currCol] != nullptr) {
 		return false;
 	}
-
 	return true;
 }
 
