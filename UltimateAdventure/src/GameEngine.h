@@ -24,4 +24,5 @@ public:
 	bool IsValidMove(Direction direction, int character_index); // check if the move in that direction is valid
 	bool IsValidAttack(int attack_x, int attack_y, int victim_x, int victim_y, int character_range); // method that checks if a battle between two units can occur
 	bool ConductBattle(int attack_x, int attack_y, int victim_x, int victim_y); // conducts battle between two characters
+	void RemoveCharacter(int x, int y, int character_index); // removes character from battle field. used when character dies
 };

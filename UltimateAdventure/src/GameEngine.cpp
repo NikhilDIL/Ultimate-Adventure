@@ -145,3 +145,8 @@ bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int vic
 
 	return false; // return false if battle was not successful
 }
+
+void GameEngine::RemoveCharacter(int x, int y, int character_index) {
+	battlefield[x][y] = nullptr;
+	character_list[character_index] = nullptr;
+}
