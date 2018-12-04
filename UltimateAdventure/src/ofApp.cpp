@@ -11,7 +11,7 @@ void ofApp::setup() {
 	character->setHealth(50);
 	units.push_back(character);
 
-	Alexander *obj2 = new Alexander(300, 600, 'H');
+	Alexander *obj2 = new Alexander(300, 600, 'E');
 	Character* character2 = obj2;
 	character2->setCol(2);
 	character2->setRow(9);
@@ -47,8 +47,11 @@ void ofApp::draw() {
 	ground.draw(200, 150);
 
 	// draw units
-	units[0]->Draw();
-	units[1]->Draw();
+	for (Character* character : units) {
+		if (character != nullptr) {
+			character->Draw();
+		}
+	}
 
 	// draw buttons
 	attack_button.draw();
@@ -138,9 +141,14 @@ void ofApp::mousePressed(int x, int y, int button) {
 
 
 				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y);
+				if (units[selected_character]->getHealth() <= 0) { // if victim's health is <= 0, remove character from field
+					delete units[selected_character]; // remove character from graphical
+					units[selected_character] = nullptr;
+					engine->RemoveCharacter(victim_x, victim_y, selected_character); // removes character from battlefield array
+				}
 				// if ConductBattle was successful, do an animation graphically for the attack
 				// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
-				selected_character = -1;
+				selected_character = -1; // reset selected_character
 			}
 		}
 	}
@@ -154,18 +162,22 @@ void ofApp::mousePressed(int x, int y, int button) {
 
 	// CHARACTER PRESSED
 	for (int i = 0; i < units.size(); i++) {
-		if (x <= (units[i]->getGraphicalX() + 50) && x >= units[i]->getGraphicalX()) {
-			if (y <= (units[i]->getGraphicalY() + 50) && y >= units[i]->getGraphicalY()) {
-				std::cout << "SELECTED A CHARACTER!" << std::endl;
-				if (units[i]->GetType() == 'H' && turn == HERO_TURN) { // a player selected a hero on Hero turn
-					current_character = i;
-				} else if (units[i]->GetType() == 'E' && turn == ENEMY_TURN) { // a player selected a enemy on Enemy turn 
-					current_character = i;
-				} else { // if we are controlling a character, allow another character to be selected so we can attack/do things to it.
-					selected_character = i;
+		if (units[i] != nullptr) {
+			if (x <= (units[i]->getGraphicalX() + 50) && x >= units[i]->getGraphicalX()) {
+				if (y <= (units[i]->getGraphicalY() + 50) && y >= units[i]->getGraphicalY()) {
+					std::cout << "SELECTED A CHARACTER!" << std::endl;
+					if (units[i]->GetType() == 'H' && turn == HERO_TURN) { // a player selected a hero on Hero turn
+						current_character = i;
+					}
+					else if (units[i]->GetType() == 'E' && turn == ENEMY_TURN) { // a player selected a enemy on Enemy turn 
+						current_character = i;
+					}
+					else { // if we are controlling a character, allow another character to be selected so we can attack/do things to it.
+						selected_character = i;
+					}
+
+					break;
 				}
-				
-				break;
 			}
 		}
 	}
