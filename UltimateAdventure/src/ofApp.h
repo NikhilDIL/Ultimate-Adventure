@@ -24,6 +24,7 @@ class ofApp : public ofBaseApp{
 		Button defense_button;
 		Button special_skill;
 		Button special_attack;
+		Button pass_turn;
 
 		TeamTurn turn; // current team's turn
 		

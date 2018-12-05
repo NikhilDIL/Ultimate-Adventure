@@ -58,6 +58,7 @@ void ofApp::draw() {
 	defense_button.draw();
 	special_skill.draw();
 	special_attack.draw();
+	pass_turn.draw();
 }
 
 //--------------------------------------------------------------
@@ -127,6 +128,8 @@ void ofApp::mousePressed(int x, int y, int button) {
 	// BUTTON PRESSED
 	if (x <= (attack_button.GetXCoord() + attack_button.GetWidth()) && x >= attack_button.GetXCoord()) {
 		if (y <= (attack_button.GetYCoord() + attack_button.GetHeight()) && y >= attack_button.GetYCoord()) {
+			attack_button.resize();
+			attack_button.update();
 			if (selected_character != -1) { // if the user has selected a character
 				// conduct battle between the current unit and the selected unit
 				int attack_x = units[current_character]->getRow();
@@ -156,7 +159,38 @@ void ofApp::mousePressed(int x, int y, int button) {
 	// DEFENSE BUTTON
 	if (x <= (defense_button.GetXCoord() + defense_button.GetWidth()) && x >= defense_button.GetXCoord()) {
 		if (y <= (defense_button.GetYCoord() + defense_button.GetHeight()) && y >= defense_button.GetYCoord()) {
-			std::cout << "IT WORKS 2!" << std::endl;
+			defense_button.resize();
+			defense_button.update();
+		}
+	}
+
+	// SPECIAL SKILL BUTTON
+	if (x <= (special_skill.GetXCoord() + special_skill.GetWidth()) && x >= special_skill.GetXCoord()) {
+		if (y <= (special_skill.GetYCoord() + special_skill.GetHeight()) && y >= special_skill.GetYCoord()) {
+			special_skill.resize();
+			special_skill.update();
+		}
+	}
+
+	// SPECIAL ATTACK BUTTON
+	if (x <= (special_attack.GetXCoord() + special_attack.GetWidth()) && x >= special_attack.GetXCoord()) {
+		if (y <= (special_attack.GetYCoord() + special_attack.GetHeight()) && y >= special_attack.GetYCoord()) {
+			special_attack.resize();
+			special_attack.update();
+		}
+	}
+
+	// PASS TURN BUTTON
+	if (x <= (pass_turn.GetXCoord() + pass_turn.GetWidth()) && x >= pass_turn.GetXCoord()) {
+		if (y <= (pass_turn.GetYCoord() + pass_turn.GetHeight()) && y >= pass_turn.GetYCoord()) {
+			pass_turn.resize();
+			pass_turn.update();
+			if (turn == HERO_TURN) {
+				turn = ENEMY_TURN;
+			}
+			else {
+				turn = HERO_TURN;
+			}
 		}
 	}
 
@@ -222,6 +256,8 @@ void ofApp::initButtons() {
 	special_skill.setup("SpecialSkill");
 	special_attack = Button(800, 600, 50, 50);
 	special_attack.setup("SpecialAttack");
+	pass_turn = Button(735, 475, 100, 40);
+	pass_turn.setup("PassTurn");
 }
 
 void ofApp::pixelToIndex(int &pixel_X, int &pixel_Y) {
