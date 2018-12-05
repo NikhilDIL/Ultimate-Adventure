@@ -7,6 +7,7 @@ private:
 	int y_coord;
 	int width;
 	int height;
+	std::string f_name;
 
 public:
 	Button(); // default constructor
@@ -17,6 +18,9 @@ public:
 	int GetYCoord();
 	void setup(std::string f_name);
 	void draw();
+	void update();
+	void resize();
 	void SetXYCoord(int x, int y);
 	ofImage button;
+	ofImage prev_image;
 };

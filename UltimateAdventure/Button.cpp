@@ -27,12 +27,26 @@ int Button::GetHeight() {
 
 void Button::setup(std::string f_name) {
 	std::string file_name = f_name + ".png";
+	f_name = file_name;
 	button.load(file_name);
+	prev_image.load(file_name);
+	prev_image.resize(width, height);
 }
 
 void Button::draw() {
 	button.draw(x_coord, y_coord);
 	button.resize(width, height);
+	button = prev_image;
+}
+
+void Button::resize() {
+	int x = width - 10;
+	int y = height - 10;
+	button.resize(x, y);
+}
+
+void Button::update() {
+	button.update();
 }
 
 void Button::SetXYCoord(int x, int y) {
