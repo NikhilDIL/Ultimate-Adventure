@@ -47,7 +47,6 @@ class ofApp : public ofBaseApp{
 
 		// My Helper Methods
 		void initButtons();
-		void pixelToIndex(int &pixel_X, int &pixel_Y);
 		void resetCharacters(TeamTurn turn);
 
 		ofSoundPlayer background;

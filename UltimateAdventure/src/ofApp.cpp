@@ -124,7 +124,7 @@ void ofApp::mousePressed(int x, int y, int button) {
 		if (y <= (attack_button.GetYCoord() + attack_button.GetHeight()) && y >= attack_button.GetYCoord()) {
 			attack_button.resize();
 			attack_button.update();
-			if (selected_character != -1) { // if the user has selected a character
+			if (current_character != -1 && selected_character != -1) { // if the user has selected a character
 				// conduct battle between the current unit and the selected unit
 				int attack_x = units[current_character]->getRow();
 				int attack_y = units[current_character]->getCol();
@@ -155,6 +155,9 @@ void ofApp::mousePressed(int x, int y, int button) {
 		if (y <= (defense_button.GetYCoord() + defense_button.GetHeight()) && y >= defense_button.GetYCoord()) {
 			defense_button.resize();
 			defense_button.update();
+			if (current_character != -1) {
+				units[current_character]->Defend();
+			}
 		}
 	}
 
@@ -255,13 +258,6 @@ void ofApp::initButtons() {
 	pass_turn = Button(735, 475, 100, 40);
 	pass_turn.setup("PassTurn");
 }
-
-void ofApp::pixelToIndex(int &pixel_X, int &pixel_Y) {
-	// 200, 675 is bottom left in graphical (0, 0)
-	pixel_X = (pixel_X - 200) / 25;
-	pixel_Y = (675 - pixel_Y) / 25;
-}
-
 
 void ofApp::resetCharacters(TeamTurn turn) {
 	char type = '\0';
