@@ -100,12 +100,6 @@ void ofApp::keyPressed(int key) {
 			units[current_character]->Draw();
 		}
 	}
-	
-	/*current_character++;
-	if (current_character >= units.size()) {
-		current_character = 0;
-		// CHANGE TO ENEMY TURN STATE
-	}*/
 }
 
 //--------------------------------------------------------------
@@ -187,9 +181,11 @@ void ofApp::mousePressed(int x, int y, int button) {
 			pass_turn.update();
 			if (turn == HERO_TURN) {
 				turn = ENEMY_TURN;
+				resetCharacters(turn);
 			}
 			else {
 				turn = HERO_TURN;
+				resetCharacters(turn);
 			}
 		}
 	}
@@ -264,4 +260,26 @@ void ofApp::pixelToIndex(int &pixel_X, int &pixel_Y) {
 	// 200, 675 is bottom left in graphical (0, 0)
 	pixel_X = (pixel_X - 200) / 25;
 	pixel_Y = (675 - pixel_Y) / 25;
+}
+
+
+void ofApp::resetCharacters(TeamTurn turn) {
+	char type = '\0';
+	if (turn == HERO_TURN) {
+		type = 'H';
+	}
+	else if (turn == ENEMY_TURN) {
+		type = 'E';
+	}
+	else {
+		return;
+	}
+
+	for (Character* character : units) {
+		if (character != nullptr && type == character->GetType()) {
+			character->ResetCharacter();
+		}	
+	}
+	current_character = -1;
+	selected_character = -1;
 }
