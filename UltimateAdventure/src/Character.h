@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 #include "Direction.h"
 class Character {
@@ -7,6 +8,7 @@ private:
 	int col;
 	int health;
 	int attack_power;
+	int defense_power;
 
 public:
 	Character(); // constructor
@@ -21,6 +23,7 @@ public:
 	virtual char GetType() = 0; // Hero or Enemy type
 	virtual int GetStepsPerTurn() = 0;
 	virtual void DecrementStepsPerTurn() = 0;
+	virtual void ResetCharacter() = 0;
 
 	// Pixel location of where that character is graphically
 	virtual int getGraphicalX() = 0; 
@@ -39,5 +42,12 @@ public:
 	void setHealth(int h);
 	int getHealth();
 
-	void ResetCharacter();
+	// Getter and setter functions for attack and defense
+	void setAttack(int a);
+	int getAttack();
+
+	void setDefense(int d);
+	int getDefense();
+
+	
 };

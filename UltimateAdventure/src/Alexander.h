@@ -36,6 +36,5 @@ public:
 	int getGraphicalX();
 	int getGraphicalY();
 
-
 	ofImage image;
 };

@@ -6,6 +6,8 @@ Alexander::Alexander(int x, int y, char t) {
 	xCoord = x;
 	yCoord = y;
 	type = t;
+	setAttack(15);
+	setDefense(0);
 }
 
 int Alexander::Attack() {
@@ -15,12 +17,17 @@ int Alexander::Attack() {
 	else {
 		made_action = true;
 	}
-	return 15;
+	return getAttack();
 }
 
 void Alexander::Defend() {
-	made_action = true;
-	cout << "doge defend" << endl;
+	if (made_action) { // if character has already made a move this turn
+		return;
+	}
+	else {
+		made_action = true;
+	}
+	setDefense(5);
 }
 
 void Alexander::StrongAttack() {
@@ -97,4 +104,6 @@ char Alexander::GetType() {
 void Alexander::ResetCharacter() {
 	steps_per_turn = 3;
 	made_action = false;
+	setAttack(15);
+	setDefense(0);
 }
