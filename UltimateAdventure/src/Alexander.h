@@ -9,6 +9,9 @@ private:
 	int yCoord;
 	char type;
 	int steps_per_turn = 3;
+	bool made_action = false; // has character attacked or defended this turn
+	bool special_skill_active = true;
+	bool special_attack_active = true;
 
 public:
 	Alexander(); // default constructor
@@ -28,6 +31,7 @@ public:
 	std::string GetName();
 	int GetStepsPerTurn();
 	void DecrementStepsPerTurn();
+	void ResetCharacter();
 
 	int getGraphicalX();
 	int getGraphicalY();

@@ -132,6 +132,9 @@ bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int vic
 	if (IsValidAttack(attack_x, attack_y, victim_x, victim_y, 1)) {
 		// deal damage to the victim
 		int damage = battlefield[attack_x][attack_y]->Attack();
+		if (damage == -1) { // player has already made an action this turn
+			return false;
+		}
 		int victim_health = battlefield[victim_x][victim_y]->getHealth();
 		int new_health = victim_health - damage;
 		std::cout << "new_health " << new_health << std::endl;

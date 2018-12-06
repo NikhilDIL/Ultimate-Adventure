@@ -9,18 +9,27 @@ Alexander::Alexander(int x, int y, char t) {
 }
 
 int Alexander::Attack() {
+	if (made_action) { // if character has already made a move this turn
+		return -1;
+	}
+	else {
+		made_action = true;
+	}
 	return 15;
 }
 
 void Alexander::Defend() {
+	made_action = true;
 	cout << "doge defend" << endl;
 }
 
 void Alexander::StrongAttack() {
+	made_action = true;
 	cout << "doge strong attack" << endl;
 }
 
 void Alexander::SpecialSkill() {
+	made_action = true;
 	cout << "Hello World. I'm Alexander!" << endl;
 }
 
@@ -83,4 +92,9 @@ void Alexander::DecrementStepsPerTurn() {
 
 char Alexander::GetType() {
 	return type;
+}
+
+void Alexander::ResetCharacter() {
+	steps_per_turn = 3;
+	made_action = false;
 }

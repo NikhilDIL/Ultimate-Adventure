@@ -38,4 +38,6 @@ public:
 	// Getter and setter functions for health
 	void setHealth(int h);
 	int getHealth();
+
+	void ResetCharacter();
 };
