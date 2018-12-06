@@ -137,8 +137,8 @@ bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int vic
 		}
 		int victim_health = battlefield[victim_x][victim_y]->getHealth();
 		int new_health = victim_health - damage;
-		std::cout << "new_health " << new_health << std::endl;
 		battlefield[victim_x][victim_y]->setHealth(new_health);
+		std::cout << "new_health " << battlefield[victim_x][victim_y]->getHealth() << std::endl;
 
 		if (battlefield[victim_x][victim_y]->getHealth() <= 0) {
 			std::cout << "This man has been killed" << std::endl;
