@@ -18,7 +18,7 @@ public:
 	Alexander(int x, int y, char t);
 	int Attack();
 	void Defend();
-	void StrongAttack();
+	int StrongAttack();
 	void SpecialSkill();
 	char GetType();
 

@@ -30,14 +30,31 @@ void Alexander::Defend() {
 	setDefense(5);
 }
 
-void Alexander::StrongAttack() {
-	made_action = true;
-	cout << "doge strong attack" << endl;
+int Alexander::StrongAttack() {
+	if (special_attack_active) {
+		if (made_action) { // if character has already made a move this turn
+			return -1;
+		}
+		else {
+			made_action = true;
+		}
+		int strong_attack = getAttack() + 20;
+		special_attack_active = false;
+		return strong_attack;
+	}
+	else {
+		return -1; // StrongAttack has already been made once over the course of the game
+	}
+	
 }
 
-void Alexander::SpecialSkill() {
-	made_action = true;
-	cout << "Hello World. I'm Alexander!" << endl;
+void Alexander::SpecialSkill() { 
+	if (special_skill_active) {
+		int current_attack = getAttack();
+		int new_attack = current_attack + 10;
+		setAttack(new_attack);
+		special_skill_active = false;
+	}
 }
 
 void Alexander::setup() {
@@ -102,6 +119,7 @@ char Alexander::GetType() {
 }
 
 void Alexander::ResetCharacter() {
+	// resets steps and any buffs from previous turn
 	steps_per_turn = 3;
 	made_action = false;
 	setAttack(15);
