@@ -67,6 +67,11 @@ void ofApp::draw() {
 	else if (turn == ENEMY_TURN) {
 		phase.drawString("ENEMY TURN", 235, 125);
 	}
+
+	if (current_character != -1) {
+		units[current_character]->DisplayInformation(40, 175);
+	} 
+	
 }
 
 //--------------------------------------------------------------
