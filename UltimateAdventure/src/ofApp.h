@@ -51,5 +51,6 @@ class ofApp : public ofBaseApp{
 
 		ofSoundPlayer background;
 		ofImage ground;
+		ofTrueTypeFont phase;
 		
 };

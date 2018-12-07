@@ -30,6 +30,7 @@ void ofApp::setup() {
 	units[1]->SetUp();
 
 	initButtons();
+	phase.load("PhaseFont.ttf", 50);
 
 	turn = HERO_TURN; // Hero's play first
 }
@@ -59,6 +60,13 @@ void ofApp::draw() {
 	special_skill.draw();
 	special_attack.draw();
 	pass_turn.draw();
+
+	if (turn == HERO_TURN) {
+		phase.drawString("HERO TURN", 260, 125);
+	}
+	else if (turn == ENEMY_TURN) {
+		phase.drawString("ENEMY TURN", 235, 125);
+	}
 }
 
 //--------------------------------------------------------------
@@ -136,7 +144,7 @@ void ofApp::mousePressed(int x, int y, int button) {
 				std::cout << "victim_y " << victim_y << std::endl;
 
 
-				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y);
+				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y, false);
 				if (units[selected_character]->getHealth() <= 0) { // if victim's health is <= 0, remove character from field
 					delete units[selected_character]; // remove character from graphical
 					units[selected_character] = nullptr;
@@ -183,7 +191,7 @@ void ofApp::mousePressed(int x, int y, int button) {
 				int victim_x = units[selected_character]->getRow();
 				int victim_y = units[selected_character]->getCol();
 
-				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y);
+				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y, true);
 				if (units[selected_character]->getHealth() <= 0) { // if victim's health is <= 0, remove character from field
 					delete units[selected_character]; // remove character from graphical
 					units[selected_character] = nullptr;
