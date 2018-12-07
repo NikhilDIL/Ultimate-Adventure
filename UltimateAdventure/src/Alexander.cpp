@@ -31,21 +31,18 @@ void Alexander::Defend() {
 }
 
 int Alexander::StrongAttack() {
+	if (made_action) { // if character has already made a move this turn
+		return -1;
+	}
 	if (special_attack_active) {
-		if (made_action) { // if character has already made a move this turn
-			return -1;
-		}
-		else {
-			made_action = true;
-		}
-		int strong_attack = getAttack() + 20;
+		made_action = true;
 		special_attack_active = false;
+		int strong_attack = getAttack() + 20;
 		return strong_attack;
 	}
 	else {
-		return -1; // StrongAttack has already been made once over the course of the game
+		return -1;
 	}
-	
 }
 
 void Alexander::SpecialSkill() { 

@@ -15,7 +15,7 @@ public:
 	// All common among all unit classes
 	virtual int Attack() = 0;
 	virtual void Defend() = 0;
-	virtual void StrongAttack() = 0;
+	virtual int StrongAttack() = 0;
 	virtual void SetDirection(Direction direction) = 0;
 	virtual void Draw() = 0;
 	virtual void SetUp() = 0;
