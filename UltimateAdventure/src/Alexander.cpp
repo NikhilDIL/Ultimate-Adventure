@@ -122,3 +122,18 @@ void Alexander::ResetCharacter() {
 	setAttack(15);
 	setDefense(0);
 }
+
+void Alexander::DisplayInformation(int x, int y) {
+	int X = x;
+	int Y = y;
+	std::string name = GetName();
+	transform(name.begin(), name.end(), name.begin(), ::toupper);
+	std::string health = "Health: " + to_string(getHealth());
+	std::string attack = "Attack: " + to_string(getAttack());
+	std::string defense = "Defense: " + to_string(getDefense());
+	
+	ofDrawBitmapString("  " + name, x, y);
+	ofDrawBitmapString(health, x, y + 25);
+	ofDrawBitmapString(attack, x, y + 40);
+	ofDrawBitmapString(defense, x, y + 55);
+}

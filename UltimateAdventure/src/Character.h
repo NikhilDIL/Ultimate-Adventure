@@ -24,6 +24,7 @@ public:
 	virtual int GetStepsPerTurn() = 0;
 	virtual void DecrementStepsPerTurn() = 0;
 	virtual void ResetCharacter() = 0;
+	virtual void DisplayInformation(int x, int y) = 0;
 
 	// Pixel location of where that character is graphically
 	virtual int getGraphicalX() = 0; 
@@ -45,7 +46,6 @@ public:
 	// Getter and setter functions for attack and defense
 	void setAttack(int a);
 	int getAttack();
-
 	void setDefense(int d);
 	int getDefense();
 

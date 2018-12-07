@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include "ofMain.h"
 #include "Character.h"
 #include "Direction.h"
@@ -21,6 +22,7 @@ public:
 	int StrongAttack();
 	void SpecialSkill();
 	char GetType();
+	void DisplayInformation(int x, int y);
 
 	void SetUp();
 	void setup();
