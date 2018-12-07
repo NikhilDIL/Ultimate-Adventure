@@ -109,12 +109,11 @@ void ofApp::keyReleased(int key) {
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y) {
-
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button) {
-	units[0]->Draw();
 }
 
 //--------------------------------------------------------------
@@ -166,6 +165,9 @@ void ofApp::mousePressed(int x, int y, int button) {
 		if (y <= (special_skill.GetYCoord() + special_skill.GetHeight()) && y >= special_skill.GetYCoord()) {
 			special_skill.resize();
 			special_skill.update();
+			if (current_character != -1) {
+				units[current_character]->SpecialSkill();
+			}
 		}
 	}
 
@@ -174,6 +176,23 @@ void ofApp::mousePressed(int x, int y, int button) {
 		if (y <= (special_attack.GetYCoord() + special_attack.GetHeight()) && y >= special_attack.GetYCoord()) {
 			special_attack.resize();
 			special_attack.update();
+			if (current_character != -1 && selected_character != -1) { // if the user has selected a character
+				// conduct battle between the current unit and the selected unit
+				int attack_x = units[current_character]->getRow();
+				int attack_y = units[current_character]->getCol();
+				int victim_x = units[selected_character]->getRow();
+				int victim_y = units[selected_character]->getCol();
+
+				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y);
+				if (units[selected_character]->getHealth() <= 0) { // if victim's health is <= 0, remove character from field
+					delete units[selected_character]; // remove character from graphical
+					units[selected_character] = nullptr;
+					engine->RemoveCharacter(victim_x, victim_y, selected_character); // removes character from battlefield array
+				}
+				// if ConductBattle was successful, do an animation graphically for the attack
+				// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
+				selected_character = -1; // reset selected_character
+			}
 		}
 	}
 
