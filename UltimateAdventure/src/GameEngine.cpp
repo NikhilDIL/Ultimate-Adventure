@@ -126,12 +126,19 @@ bool GameEngine::IsValidAttack(int attack_x, int attack_y, int victim_x, int vic
 	return false;
 }
 
-bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int victim_y) {
+bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int victim_y, bool is_strong_attack) {
 	// check if the victim of battle is within the range of attacker
 	// if it's within the range, deal damage to said victim based on the attacker's attack power
 	if (IsValidAttack(attack_x, attack_y, victim_x, victim_y, 1)) {
 		// deal damage to the victim
-		int damage = battlefield[attack_x][attack_y]->Attack();
+		int damage = 0;
+		if (is_strong_attack) {
+			damage = battlefield[attack_x][attack_y]->StrongAttack();
+		}
+		else {
+			damage = battlefield[attack_x][attack_y]->Attack();
+		}
+
 		if (damage == -1) { // player has already made an action this turn
 			return false;
 		}
