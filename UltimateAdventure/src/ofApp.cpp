@@ -16,6 +16,7 @@ void ofApp::setup() {
 	background.setLoop(true);
 	units[0]->SetUp();
 	units[1]->SetUp();
+	units[2]->SetUp();
 
 	initButtons();
 	phase.load("PhaseFont.ttf", 50);
@@ -321,19 +322,23 @@ void ofApp::drawInformationDisplayBox(int x, int y, char type) {
 	ofDrawRectangle(x, y, 160, 215);
 }
 
-
 void ofApp::initHeroes() {
 	Character* character = new Alexander(200, 600, 'H', 15, 0);
 	character->setCol(0);
 	character->setRow(9);
 	character->setHealth(50);
 	units.push_back(character);
+
+	Character* character2 = new Alexander(250, 600, 'H', 20, 0);
+	character2->setCol(1);
+	character2->setRow(9);
+	character2->setHealth(100);
+	units.push_back(character2);
 }
 
-
 void ofApp::initEnemies() {
-	Character* character = new Alexander(300, 600, 'E', 15, 0);
-	character->setCol(2);
+	Character* character = new Alexander(350, 600, 'E', 15, 0);
+	character->setCol(3);
 	character->setRow(9);
 	character->setHealth(50);
 	units.push_back(character);
