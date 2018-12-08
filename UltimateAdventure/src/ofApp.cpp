@@ -43,6 +43,7 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 	// draw graphical battlefield
+	ofSetColor(255, 255, 255);
 	ground.load("stone.jpg");
 	ground.resize(500, 500);
 	ground.draw(200, 150);
@@ -69,7 +70,8 @@ void ofApp::draw() {
 	}
 
 	if (current_character != -1) {
-		units[current_character]->DisplayInformation(40, 175);
+		drawInformationDisplayBox(15, 180, units[current_character]->GetType());
+		units[current_character]->DisplayInformation(20, 200);
 	} 
 	
 }
@@ -310,4 +312,16 @@ void ofApp::resetCharacters(TeamTurn turn) {
 	}
 	current_character = -1;
 	selected_character = -1;
+}
+
+
+void ofApp::drawInformationDisplayBox(int x, int y, char type) {
+	if (type == 'H') {
+		ofSetColor(0, 153, 51);
+	}
+	else {
+		ofSetColor(255, 0, 0);
+	}
+	ofNoFill();
+	ofDrawRectangle(x, y, 160, 215);
 }

@@ -48,6 +48,7 @@ class ofApp : public ofBaseApp{
 		// My Helper Methods
 		void initButtons();
 		void resetCharacters(TeamTurn turn);
+		void drawInformationDisplayBox(int x, int y, char type);
 
 		ofSoundPlayer background;
 		ofImage ground;
