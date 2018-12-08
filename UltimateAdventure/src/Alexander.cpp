@@ -6,7 +6,6 @@ Alexander::Alexander(int x, int y, char t, int a, int d) {
 	xCoord = x;
 	yCoord = y;
 	type = t;
-	setHealth(50);
 	setAttack(a);
 	setDefense(d);
 }
