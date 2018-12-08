@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <vector>
 #include "ofMain.h"
 #include "Character.h"
 #include "Direction.h"

@@ -131,9 +131,31 @@ void Alexander::DisplayInformation(int x, int y) {
 	std::string health = "Health: " + to_string(getHealth());
 	std::string attack = "Attack: " + to_string(getAttack());
 	std::string defense = "Defense: " + to_string(getDefense());
-	
+	std::string special_skill = "Special Skill: (A)";
+	if (!special_skill_active) {
+		special_skill = "Special Skill: (U)";
+	}
+	special_skill = special_skill + "\nAttack +10";
+	std::string strong_attack = "Strong Attack: (A)";
+	if (!special_attack_active) {
+		strong_attack = "Strong Attack: (U)";
+	}
+	strong_attack = strong_attack + "\nDeals 25 damage";
+
+	std::vector<std::string> stats;
+	stats.push_back(health);
+	stats.push_back(attack);
+	stats.push_back(defense);
+	stats.push_back(special_skill);
+	stats.push_back(strong_attack);
+		
 	ofDrawBitmapString("  " + name, x, y);
-	ofDrawBitmapString(health, x, y + 25);
-	ofDrawBitmapString(attack, x, y + 40);
-	ofDrawBitmapString(defense, x, y + 55);
+	y += 15;
+	for (std::string stat : stats) {
+		ofDrawBitmapString(stat, x, y);
+		y += 15;
+		if (stat.compare(special_skill) == 0 || stat.compare(strong_attack) == 0) {
+			y += 15;
+		}
+	}
 }
