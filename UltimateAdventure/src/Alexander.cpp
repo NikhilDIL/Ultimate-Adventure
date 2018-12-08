@@ -2,12 +2,13 @@
 
 Alexander::Alexander() {}
 
-Alexander::Alexander(int x, int y, char t) {
+Alexander::Alexander(int x, int y, char t, int a, int d) {
 	xCoord = x;
 	yCoord = y;
 	type = t;
-	setAttack(15);
-	setDefense(0);
+	setHealth(50);
+	setAttack(a);
+	setDefense(d);
 }
 
 int Alexander::Attack() {
@@ -149,7 +150,7 @@ void Alexander::DisplayInformation(int x, int y) {
 	stats.push_back(special_skill);
 	stats.push_back(strong_attack);
 		
-	ofDrawBitmapString("  " + name, x, y);
+	ofDrawBitmapString("   " + name, x, y);
 	y += 15;
 	for (std::string stat : stats) {
 		ofDrawBitmapString(stat, x, y);

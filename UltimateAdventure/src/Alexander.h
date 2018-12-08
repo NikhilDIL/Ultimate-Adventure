@@ -17,7 +17,7 @@ private:
 
 public:
 	Alexander(); // default constructor
-	Alexander(int x, int y, char t);
+	Alexander(int x, int y, char t, int a, int d);
 	int Attack();
 	void Defend();
 	int StrongAttack();
