@@ -2,21 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	current_character;
-	// create character and add it to the vector
-	Alexander *obj = new Alexander(200, 600, 'H');
-	Character* character = obj;
-	character->setCol(0);
-	character->setRow(9);
-	character->setHealth(50);
-	units.push_back(character);
-
-	Alexander *obj2 = new Alexander(300, 600, 'E');
-	Character* character2 = obj2;
-	character2->setCol(2);
-	character2->setRow(9);
-	character2->setHealth(50);
-	units.push_back(character2);
+	// initialize heroes and enemies
+	initHeroes();
+	initEnemies();
 
 	// create a new game engine
 	GameEngine *gameengine = new GameEngine(units); 
@@ -62,6 +50,7 @@ void ofApp::draw() {
 	special_attack.draw();
 	pass_turn.draw();
 
+	// display turn
 	if (turn == HERO_TURN) {
 		phase.drawString("HERO TURN", 260, 125);
 	}
@@ -69,10 +58,15 @@ void ofApp::draw() {
 		phase.drawString("ENEMY TURN", 235, 125);
 	}
 
+	// display character information
 	if (current_character != -1) {
 		drawInformationDisplayBox(15, 180, units[current_character]->GetType());
 		units[current_character]->DisplayInformation(20, 200);
 	} 
+	if (selected_character != -1) {
+		drawInformationDisplayBox(15, 400, units[selected_character]->GetType());
+		units[selected_character]->DisplayInformation(20, 420);
+	}
 	
 }
 
@@ -156,10 +150,11 @@ void ofApp::mousePressed(int x, int y, int button) {
 					delete units[selected_character]; // remove character from graphical
 					units[selected_character] = nullptr;
 					engine->RemoveCharacter(victim_x, victim_y, selected_character); // removes character from battlefield array
+					selected_character = -1; // reset selected_character
 				}
 				// if ConductBattle was successful, do an animation graphically for the attack
 				// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
-				selected_character = -1; // reset selected_character
+				
 			}
 		}
 	}
@@ -203,10 +198,10 @@ void ofApp::mousePressed(int x, int y, int button) {
 					delete units[selected_character]; // remove character from graphical
 					units[selected_character] = nullptr;
 					engine->RemoveCharacter(victim_x, victim_y, selected_character); // removes character from battlefield array
+					selected_character = -1; // reset selected_character
 				}
 				// if ConductBattle was successful, do an animation graphically for the attack
 				// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
-				selected_character = -1; // reset selected_character
 			}
 		}
 	}
@@ -324,4 +319,22 @@ void ofApp::drawInformationDisplayBox(int x, int y, char type) {
 	}
 	ofNoFill();
 	ofDrawRectangle(x, y, 160, 215);
+}
+
+
+void ofApp::initHeroes() {
+	Character* character = new Alexander(200, 600, 'H', 15, 0);
+	character->setCol(0);
+	character->setRow(9);
+	character->setHealth(50);
+	units.push_back(character);
+}
+
+
+void ofApp::initEnemies() {
+	Character* character = new Alexander(300, 600, 'E', 15, 0);
+	character->setCol(2);
+	character->setRow(9);
+	character->setHealth(50);
+	units.push_back(character);
 }
