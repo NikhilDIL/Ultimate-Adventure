@@ -48,6 +48,4 @@ public:
 	int getAttack();
 	void setDefense(int d);
 	int getDefense();
-
-	
 };
