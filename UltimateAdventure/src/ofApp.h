@@ -27,6 +27,14 @@ class ofApp : public ofBaseApp{
 		Button pass_turn;
 
 		TeamTurn turn; // current team's turn
+
+		// My Helper Methods
+		void InitButtons();
+		void InitHeroes();
+		void InitEnemies();
+		void ResetCharacters(TeamTurn turn);
+		void DrawInformationDisplayBox(int x, int y, char type);
+		void CharacterBattle(bool is_strong_attack);
 		
 	public:
 		void setup();
@@ -45,15 +53,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		// My Helper Methods
-		void initButtons();
-		void initHeroes();
-		void initEnemies();
-		void resetCharacters(TeamTurn turn);
-		void drawInformationDisplayBox(int x, int y, char type);
-
 		ofSoundPlayer background;
 		ofImage ground;
 		ofTrueTypeFont phase;
-		
 };

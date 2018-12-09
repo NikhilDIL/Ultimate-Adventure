@@ -3,8 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
 	// initialize heroes and enemies
-	initHeroes();
-	initEnemies();
+	InitHeroes();
+	InitEnemies();
 
 	// create a new game engine
 	GameEngine *gameengine = new GameEngine(units); 
@@ -18,7 +18,7 @@ void ofApp::setup() {
 	units[1]->SetUp();
 	units[2]->SetUp();
 
-	initButtons();
+	InitButtons();
 	phase.load("PhaseFont.ttf", 50);
 
 	turn = HERO_TURN; // Hero's play first
@@ -61,11 +61,11 @@ void ofApp::draw() {
 
 	// display character information
 	if (current_character != -1) {
-		drawInformationDisplayBox(15, 180, units[current_character]->GetType());
+		DrawInformationDisplayBox(15, 180, units[current_character]->GetType());
 		units[current_character]->DisplayInformation(20, 200);
 	} 
 	if (selected_character != -1) {
-		drawInformationDisplayBox(15, 400, units[selected_character]->GetType());
+		DrawInformationDisplayBox(15, 400, units[selected_character]->GetType());
 		units[selected_character]->DisplayInformation(20, 420);
 	}
 	
@@ -128,99 +128,37 @@ void ofApp::mouseDragged(int x, int y, int button) {
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
-	// BUTTON PRESSED
-	if (x <= (attack_button.GetXCoord() + attack_button.GetWidth()) && x >= attack_button.GetXCoord()) {
-		if (y <= (attack_button.GetYCoord() + attack_button.GetHeight()) && y >= attack_button.GetYCoord()) {
-			attack_button.resize();
-			attack_button.update();
-			if (current_character != -1 && selected_character != -1) { // if the user has selected a character
-				// conduct battle between the current unit and the selected unit
-				int attack_x = units[current_character]->getRow();
-				int attack_y = units[current_character]->getCol();
-				int victim_x = units[selected_character]->getRow();
-				int victim_y = units[selected_character]->getCol();
-
-				std::cout << "attack_x " << attack_x << std::endl;
-				std::cout << "attack_y " << attack_y << std::endl;
-				std::cout << "victim_x " << victim_x << std::endl;
-				std::cout << "victim_y " << victim_y << std::endl;
-
-
-				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y, false);
-				if (units[selected_character]->getHealth() <= 0) { // if victim's health is <= 0, remove character from field
-					delete units[selected_character]; // remove character from graphical
-					units[selected_character] = nullptr;
-					engine->RemoveCharacter(victim_x, victim_y, selected_character); // removes character from battlefield array
-					selected_character = -1; // reset selected_character
-				}
-				// if ConductBattle was successful, do an animation graphically for the attack
-				// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
-				
-			}
+	if (current_character != -1) {
+		// BUTTON PRESSED
+		if (attack_button.IsClicked(x, y)) {
+			CharacterBattle(false);
 		}
-	}
 
-	// DEFENSE BUTTON
-	if (x <= (defense_button.GetXCoord() + defense_button.GetWidth()) && x >= defense_button.GetXCoord()) {
-		if (y <= (defense_button.GetYCoord() + defense_button.GetHeight()) && y >= defense_button.GetYCoord()) {
-			defense_button.resize();
-			defense_button.update();
-			if (current_character != -1) {
-				units[current_character]->Defend();
-			}
+		// DEFENSE BUTTON
+		if (defense_button.IsClicked(x, y)) {
+			units[current_character]->Defend();
 		}
-	}
 
-	// SPECIAL SKILL BUTTON
-	if (x <= (special_skill.GetXCoord() + special_skill.GetWidth()) && x >= special_skill.GetXCoord()) {
-		if (y <= (special_skill.GetYCoord() + special_skill.GetHeight()) && y >= special_skill.GetYCoord()) {
-			special_skill.resize();
-			special_skill.update();
-			if (current_character != -1) {
-				units[current_character]->SpecialSkill();
-			}
+		// SPECIAL SKILL BUTTON
+		if (special_skill.IsClicked(x, y)) {
+			units[current_character]->SpecialSkill();
 		}
-	}
 
-	// SPECIAL ATTACK BUTTON
-	if (x <= (special_attack.GetXCoord() + special_attack.GetWidth()) && x >= special_attack.GetXCoord()) {
-		if (y <= (special_attack.GetYCoord() + special_attack.GetHeight()) && y >= special_attack.GetYCoord()) {
-			special_attack.resize();
-			special_attack.update();
-			if (current_character != -1 && selected_character != -1) { // if the user has selected a character
-				// conduct battle between the current unit and the selected unit
-				int attack_x = units[current_character]->getRow();
-				int attack_y = units[current_character]->getCol();
-				int victim_x = units[selected_character]->getRow();
-				int victim_y = units[selected_character]->getCol();
-
-				engine->ConductBattle(attack_x, attack_y, victim_x, victim_y, true);
-				if (units[selected_character]->getHealth() <= 0) { // if victim's health is <= 0, remove character from field
-					delete units[selected_character]; // remove character from graphical
-					units[selected_character] = nullptr;
-					engine->RemoveCharacter(victim_x, victim_y, selected_character); // removes character from battlefield array
-					selected_character = -1; // reset selected_character
-				}
-				// if ConductBattle was successful, do an animation graphically for the attack
-				// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
-			}
+		// SPECIAL ATTACK BUTTON
+		if (special_attack.IsClicked(x, y)) {
+			CharacterBattle(true);
 		}
 	}
 
 	// PASS TURN BUTTON
-	if (x <= (pass_turn.GetXCoord() + pass_turn.GetWidth()) && x >= pass_turn.GetXCoord()) {
-		if (y <= (pass_turn.GetYCoord() + pass_turn.GetHeight()) && y >= pass_turn.GetYCoord()) {
-			pass_turn.resize();
-			pass_turn.update();
-			if (turn == HERO_TURN) {
-				turn = ENEMY_TURN;
-				resetCharacters(turn);
-			}
-			else {
-				turn = HERO_TURN;
-				resetCharacters(turn);
-			}
+	if (pass_turn.IsClicked(x, y)) {
+		if (turn == HERO_TURN) {
+			turn = ENEMY_TURN;
 		}
+		else {
+			turn = HERO_TURN;
+		}
+		ResetCharacters(turn);
 	}
 
 	// CHARACTER PRESSED
@@ -276,7 +214,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo) {
 
 }
 
-void ofApp::initButtons() {
+void ofApp::InitButtons() {
 	attack_button = Button(725, 530, 50, 50);
 	attack_button.setup("AttackButton");
 	defense_button = Button(800, 530, 50, 50);
@@ -289,7 +227,7 @@ void ofApp::initButtons() {
 	pass_turn.setup("PassTurn");
 }
 
-void ofApp::resetCharacters(TeamTurn turn) {
+void ofApp::ResetCharacters(TeamTurn turn) {
 	char type = '\0';
 	if (turn == HERO_TURN) {
 		type = 'H';
@@ -311,7 +249,7 @@ void ofApp::resetCharacters(TeamTurn turn) {
 }
 
 
-void ofApp::drawInformationDisplayBox(int x, int y, char type) {
+void ofApp::DrawInformationDisplayBox(int x, int y, char type) {
 	if (type == 'H') {
 		ofSetColor(0, 153, 51);
 	}
@@ -322,24 +260,46 @@ void ofApp::drawInformationDisplayBox(int x, int y, char type) {
 	ofDrawRectangle(x, y, 160, 215);
 }
 
-void ofApp::initHeroes() {
-	Character* character = new Alexander(200, 600, 'H', 15, 0);
-	character->setCol(0);
-	character->setRow(9);
-	character->setHealth(50);
+void ofApp::InitHeroes() {
+	Character* character = new Alexander(200, 600, 'H', 15, 0, 50, 3);
+	character->SetCol(0);
+	character->SetRow(9);
 	units.push_back(character);
 
-	Character* character2 = new Alexander(250, 600, 'H', 20, 0);
-	character2->setCol(1);
-	character2->setRow(9);
-	character2->setHealth(100);
+	Character* character2 = new Alexander(250, 600, 'H', 20, 0, 70, 3);
+	character2->SetCol(1);
+	character2->SetRow(9);
 	units.push_back(character2);
 }
 
-void ofApp::initEnemies() {
-	Character* character = new Alexander(350, 600, 'E', 15, 0);
-	character->setCol(3);
-	character->setRow(9);
-	character->setHealth(50);
+void ofApp::InitEnemies() {
+	Character* character = new Alexander(350, 600, 'E', 15, 0, 50, 3);
+	character->SetCol(3);
+	character->SetRow(9);
 	units.push_back(character);
+}
+
+void ofApp::CharacterBattle(bool is_strong_attack) {
+	if (selected_character != -1) {
+		// conduct battle between the current unit and the selected unit
+		int attack_x = units[current_character]->GetRow();
+		int attack_y = units[current_character]->GetCol();
+		int victim_x = units[selected_character]->GetRow();
+		int victim_y = units[selected_character]->GetCol();
+
+		std::cout << "attack_x " << attack_x << std::endl;
+		std::cout << "attack_y " << attack_y << std::endl;
+		std::cout << "victim_x " << victim_x << std::endl;
+		std::cout << "victim_y " << victim_y << std::endl;
+
+		engine->ConductBattle(attack_x, attack_y, victim_x, victim_y, is_strong_attack);
+		if (units[selected_character]->GetHealth() <= 0) { // if victim's health is <= 0, remove character from field
+			delete units[selected_character]; // remove character from graphical
+			units[selected_character] = nullptr;
+			engine->RemoveCharacter(victim_x, victim_y, selected_character); // removes character from battlefield array
+			selected_character = -1; // reset selected_character
+		}
+		// if ConductBattle was successful, do an animation graphically for the attack
+		// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
+	}
 }
