@@ -2,13 +2,14 @@
 
 Alexander::Alexander() {}
 
-Alexander::Alexander(int x, int y, char t, int a, int d, int h) {
+Alexander::Alexander(int x, int y, char t, int a, int d, int h, int s) {
 	x_coord = x;
 	y_coord = y;
 	type = t;
 	attack_power = a;
 	defense_power = d;
 	health = h;
+	steps_per_turn = s;
 }
 
 int Alexander::Attack() {
@@ -58,6 +59,10 @@ void Alexander::setup() {
 	image.resize(50, 50);
 }
 
+void Alexander::draw() {
+	image.draw(x_coord, y_coord);
+}
+
 void Alexander::Draw() {
 	draw();
 }
@@ -66,40 +71,8 @@ void Alexander::SetUp() {
 	setup();
 }
 
-void Alexander::draw() {
-	image.draw(x_coord, y_coord);
-}
-
-void Alexander::update() {}
-
-void Alexander::SetDirection(Direction direction) {
-	// If the move is valid on the game engine board, then do the move. else return.
-	switch (direction) { 
-		case RIGHT: // move right
-			x_coord += 50;
-			break;
-		case LEFT: // move left
-			x_coord -= 50;
-			break;
-		case DOWN: // move down
-			y_coord += 50;
-			break;
-		case UP: // move up
-			y_coord -= 50;
-			break;
-	}
-}
-
 std::string Alexander::GetName() {
 	return "Alexander";
-}
-
-int Alexander::GetStepsPerTurn() {
-	return steps_per_turn;
-}
-
-void Alexander::DecrementStepsPerTurn() {
-	steps_per_turn--;
 }
 
 void Alexander::ResetCharacter() {

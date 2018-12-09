@@ -56,3 +56,29 @@ char Character::GetType() {
 	return type;
 }
 
+void Character::SetDirection(Direction direction) {
+	// If the move is valid on the game engine board, then do the move. else return.
+	switch (direction) {
+	case RIGHT: // move right
+		x_coord += 50;
+		break;
+	case LEFT: // move left
+		x_coord -= 50;
+		break;
+	case DOWN: // move down
+		y_coord += 50;
+		break;
+	case UP: // move up
+		y_coord -= 50;
+		break;
+	}
+}
+
+int Character::GetStepsPerTurn() {
+	return steps_per_turn;
+}
+
+void Character::DecrementStepsPerTurn() {
+	steps_per_turn--;
+}
+

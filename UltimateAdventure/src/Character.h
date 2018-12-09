@@ -14,6 +14,7 @@ protected:
 	char type;
 	int attack_power;
 	int defense_power;
+	int steps_per_turn;
 	bool made_action = false; // has character attacked or defended this turn
 	bool special_skill_active = true;
 	bool special_attack_active = true;
@@ -25,15 +26,16 @@ public:
 	virtual void Defend() = 0;
 	virtual int StrongAttack() = 0;
 	virtual void SpecialSkill() = 0;
-	virtual void SetDirection(Direction direction) = 0;
 	virtual void Draw() = 0;
 	virtual void SetUp() = 0;
 	virtual std::string GetName() = 0; // returns name of character
-	virtual int GetStepsPerTurn() = 0;
-	virtual void DecrementStepsPerTurn() = 0;
 	virtual void ResetCharacter() = 0;
 	virtual void DisplayInformation(int x, int y) = 0;
 
+	int GetStepsPerTurn();
+	void DecrementStepsPerTurn();
+
+	void SetDirection(Direction direction);
 	char GetType(); // Hero or Enemy type
 
 	// Pixel location of where that character is graphically
