@@ -128,56 +128,25 @@ void ofApp::mouseDragged(int x, int y, int button) {
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
-	if (current_character != -1) {
-		// BUTTON PRESSED
-		if (attack_button.IsClicked(x, y)) {
-			CharacterBattle(false);
-		}
+	if (!IsButtonPressed(x, y)) {
+		// CHARACTER PRESSED
+		for (int i = 0; i < units.size(); i++) {
+			if (units[i] != nullptr) {
+				if (x <= (units[i]->getGraphicalX() + 50) && x >= units[i]->getGraphicalX()) {
+					if (y <= (units[i]->getGraphicalY() + 50) && y >= units[i]->getGraphicalY()) {
+						std::cout << "SELECTED A CHARACTER!" << std::endl;
+						if (units[i]->GetType() == 'H' && turn == HERO_TURN) { // a player selected a hero on Hero turn
+							current_character = i;
+						}
+						else if (units[i]->GetType() == 'E' && turn == ENEMY_TURN) { // a player selected a enemy on Enemy turn 
+							current_character = i;
+						}
+						else { // if we are controlling a character, allow another character to be selected so we can attack/do things to it.
+							selected_character = i;
+						}
 
-		// DEFENSE BUTTON
-		if (defense_button.IsClicked(x, y)) {
-			units[current_character]->Defend();
-		}
-
-		// SPECIAL SKILL BUTTON
-		if (special_skill.IsClicked(x, y)) {
-			units[current_character]->SpecialSkill();
-		}
-
-		// SPECIAL ATTACK BUTTON
-		if (special_attack.IsClicked(x, y)) {
-			CharacterBattle(true);
-		}
-	}
-
-	// PASS TURN BUTTON
-	if (pass_turn.IsClicked(x, y)) {
-		if (turn == HERO_TURN) {
-			turn = ENEMY_TURN;
-		}
-		else {
-			turn = HERO_TURN;
-		}
-		ResetCharacters(turn);
-	}
-
-	// CHARACTER PRESSED
-	for (int i = 0; i < units.size(); i++) {
-		if (units[i] != nullptr) {
-			if (x <= (units[i]->getGraphicalX() + 50) && x >= units[i]->getGraphicalX()) {
-				if (y <= (units[i]->getGraphicalY() + 50) && y >= units[i]->getGraphicalY()) {
-					std::cout << "SELECTED A CHARACTER!" << std::endl;
-					if (units[i]->GetType() == 'H' && turn == HERO_TURN) { // a player selected a hero on Hero turn
-						current_character = i;
+						break;
 					}
-					else if (units[i]->GetType() == 'E' && turn == ENEMY_TURN) { // a player selected a enemy on Enemy turn 
-						current_character = i;
-					}
-					else { // if we are controlling a character, allow another character to be selected so we can attack/do things to it.
-						selected_character = i;
-					}
-
-					break;
 				}
 			}
 		}
@@ -302,4 +271,46 @@ void ofApp::CharacterBattle(bool is_strong_attack) {
 		// if ConductBattle was successful, do an animation graphically for the attack
 		// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
 	}
+}
+
+bool ofApp::IsButtonPressed(int x, int y) {
+	if (current_character != -1) {
+		// BUTTON PRESSED
+		if (attack_button.IsClicked(x, y)) {
+			CharacterBattle(false);
+			return true;
+		}
+
+		// DEFENSE BUTTON
+		if (defense_button.IsClicked(x, y)) {
+			units[current_character]->Defend();
+			return true;
+		}
+
+		// SPECIAL SKILL BUTTON
+		if (special_skill.IsClicked(x, y)) {
+			units[current_character]->SpecialSkill();
+			return true;
+		}
+
+		// SPECIAL ATTACK BUTTON
+		if (special_attack.IsClicked(x, y)) {
+			CharacterBattle(true);
+			return true;
+		}
+	}
+
+	// PASS TURN BUTTON
+	if (pass_turn.IsClicked(x, y)) {
+		if (turn == HERO_TURN) {
+			turn = ENEMY_TURN;
+		}
+		else {
+			turn = HERO_TURN;
+		}
+		ResetCharacters(turn);
+		return true;
+	}
+
+	return false;
 }

@@ -35,6 +35,7 @@ class ofApp : public ofBaseApp{
 		void ResetCharacters(TeamTurn turn);
 		void DrawInformationDisplayBox(int x, int y, char type);
 		void CharacterBattle(bool is_strong_attack);
+		bool IsButtonPressed(int x, int y);
 		
 	public:
 		void setup();
