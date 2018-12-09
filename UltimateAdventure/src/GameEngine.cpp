@@ -14,8 +14,8 @@ GameEngine::GameEngine(const std::vector<Character*> &characters) {
 
 	// add characters from the character_list to the battlefield
 	for (Character* character : character_list) {
-		int r = character->getRow();
-		int c = character->getCol();
+		int r = character->GetRow();
+		int c = character->GetCol();
 		battlefield[r][c] = character;
 	}
 }
@@ -27,8 +27,8 @@ void GameEngine::MoveCharacters() {}
 bool GameEngine::IsValidMove(Direction direction, int character_index) {
 	// CHECK IF CHARACTER HAS ANY MOVES LEFT FOR THE TURN. 3 FOR WARRIOR, 2 FOR MAGE, 1 FOR TANK
 	// get current row and column location of character
-	int currRow = character_list[character_index]->getRow();
-	int currCol = character_list[character_index]->getCol();
+	int currRow = character_list[character_index]->GetRow();
+	int currCol = character_list[character_index]->GetCol();
 
 	switch (direction) {
 		case RIGHT:
@@ -64,30 +64,30 @@ bool GameEngine::IsValidMove(Direction direction, int character_index) {
 // If that move can be made then do the move and return true
 // else just return false
 bool GameEngine::MoveCharacter(int direction, int character_index) {
-	int currRow = character_list[character_index]->getRow();
-	int currCol = character_list[character_index]->getCol();
+	int currRow = character_list[character_index]->GetRow();
+	int currCol = character_list[character_index]->GetCol();
 	int val = 0;
 
 	// update the location of character in battlefield
 	switch (direction) {
 		case RIGHT:
 			val = currCol + 1;
-			character_list[character_index]->setCol(val);
+			character_list[character_index]->SetCol(val);
 			battlefield[currRow][val] = battlefield[currRow][currCol];
 			break;
 		case LEFT:
 			val = currCol - 1;
-			character_list[character_index]->setCol(val);
+			character_list[character_index]->SetCol(val);
 			battlefield[currRow][val] = battlefield[currRow][currCol];
 			break;
 		case DOWN: 
 			val = currRow + 1;
-			character_list[character_index]->setRow(val);
+			character_list[character_index]->SetRow(val);
 			battlefield[val][currCol] = battlefield[currRow][currCol];
 			break;
 		case UP: 
 			val = currRow - 1;
-			character_list[character_index]->setRow(val);
+			character_list[character_index]->SetRow(val);
 			battlefield[val][currCol] = battlefield[currRow][currCol];
 			break;
 	}
@@ -142,12 +142,12 @@ bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int vic
 		if (damage == -1) { // player has already made an action this turn
 			return false;
 		}
-		int victim_health = battlefield[victim_x][victim_y]->getHealth();
+		int victim_health = battlefield[victim_x][victim_y]->GetHealth();
 		int new_health = victim_health - damage;
-		battlefield[victim_x][victim_y]->setHealth(new_health);
-		std::cout << "new_health " << battlefield[victim_x][victim_y]->getHealth() << std::endl;
+		battlefield[victim_x][victim_y]->SetHealth(new_health);
+		std::cout << "new_health " << battlefield[victim_x][victim_y]->GetHealth() << std::endl;
 
-		if (battlefield[victim_x][victim_y]->getHealth() <= 0) {
+		if (battlefield[victim_x][victim_y]->GetHealth() <= 0) {
 			std::cout << "This man has been killed" << std::endl;
 		}
 		return true;
