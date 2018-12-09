@@ -18,26 +18,27 @@ private:
 public:
 	Alexander(); // default constructor
 	Alexander(int x, int y, char t, int a, int d);
+
+	// Implementations of all the virtual functions
 	int Attack();
 	void Defend();
 	int StrongAttack();
 	void SpecialSkill();
-	char GetType();
-	void DisplayInformation(int x, int y);
-
-	void SetUp();
-	void setup();
-	void Draw();
-	void draw();
-	void update();
 	void SetDirection(Direction direction);
 	std::string GetName();
+	char GetType();
+	void DisplayInformation(int x, int y);
 	int GetStepsPerTurn();
 	void DecrementStepsPerTurn();
 	void ResetCharacter();
-
+	void SetUp();
+	void Draw();
 	int getGraphicalX();
 	int getGraphicalY();
-
+	
+	void setup();
+	void draw();
+	void update();
+	
 	ofImage image;
 };

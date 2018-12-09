@@ -11,11 +11,12 @@ private:
 	int defense_power;
 
 public:
-	Character(); // constructor
+	Character(); // default constructor
 	// All common among all unit classes
 	virtual int Attack() = 0;
 	virtual void Defend() = 0;
 	virtual int StrongAttack() = 0;
+	virtual void SpecialSkill() = 0;
 	virtual void SetDirection(Direction direction) = 0;
 	virtual void Draw() = 0;
 	virtual void SetUp() = 0;
@@ -30,22 +31,17 @@ public:
 	virtual int getGraphicalX() = 0; 
 	virtual int getGraphicalY() = 0;
 
-	// This varies depending on character
-	virtual void SpecialSkill() = 0;
-
 	// Getter and setter functions for row and col
-	void setRow(int r);
-	void setCol(int c);
-	int getRow();
-	int getCol();
+	void SetRow(int r);
+	void SetCol(int c);
+	int GetRow();
+	int GetCol();
 
-	// Getter and setter functions for health
-	void setHealth(int h);
-	int getHealth();
-
-	// Getter and setter functions for attack and defense
-	void setAttack(int a);
-	int getAttack();
-	void setDefense(int d);
-	int getDefense();
+	// Getter and setter functions for health, attack, and defense
+	void SetHealth(int h);
+	int GetHealth();
+	void SetAttack(int a);
+	int GetAttack();
+	void SetDefense(int d);
+	int GetDefense();
 };

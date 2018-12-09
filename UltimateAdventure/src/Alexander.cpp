@@ -6,8 +6,8 @@ Alexander::Alexander(int x, int y, char t, int a, int d) {
 	xCoord = x;
 	yCoord = y;
 	type = t;
-	setAttack(a);
-	setDefense(d);
+	SetAttack(a);
+	SetDefense(d);
 }
 
 int Alexander::Attack() {
@@ -17,7 +17,7 @@ int Alexander::Attack() {
 	else {
 		made_action = true;
 	}
-	return getAttack();
+	return GetAttack();
 }
 
 void Alexander::Defend() {
@@ -27,7 +27,7 @@ void Alexander::Defend() {
 	else {
 		made_action = true;
 	}
-	setDefense(5);
+	SetDefense(5);
 }
 
 int Alexander::StrongAttack() {
@@ -37,7 +37,7 @@ int Alexander::StrongAttack() {
 	if (special_attack_active) {
 		made_action = true;
 		special_attack_active = false;
-		int strong_attack = getAttack() + 20;
+		int strong_attack = GetAttack() + 20;
 		return strong_attack;
 	}
 	else {
@@ -47,9 +47,9 @@ int Alexander::StrongAttack() {
 
 void Alexander::SpecialSkill() { 
 	if (special_skill_active) {
-		int current_attack = getAttack();
+		int current_attack = GetAttack();
 		int new_attack = current_attack + 10;
-		setAttack(new_attack);
+		SetAttack(new_attack);
 		special_skill_active = false;
 	}
 }
@@ -119,8 +119,8 @@ void Alexander::ResetCharacter() {
 	// resets steps and any buffs from previous turn
 	steps_per_turn = 3;
 	made_action = false;
-	setAttack(15);
-	setDefense(0);
+	SetAttack(15);
+	SetDefense(0);
 }
 
 void Alexander::DisplayInformation(int x, int y) {
@@ -128,9 +128,9 @@ void Alexander::DisplayInformation(int x, int y) {
 	int Y = y;
 	std::string name = GetName();
 	transform(name.begin(), name.end(), name.begin(), ::toupper);
-	std::string health = "Health: " + to_string(getHealth());
-	std::string attack = "Attack: " + to_string(getAttack());
-	std::string defense = "Defense: " + to_string(getDefense());
+	std::string health = "Health: " + to_string(GetHealth());
+	std::string attack = "Attack: " + to_string(GetAttack());
+	std::string defense = "Defense: " + to_string(GetDefense());
 	std::string special_skill = "Special Skill: (A)";
 	if (!special_skill_active) {
 		special_skill = "Special Skill: (U)";
