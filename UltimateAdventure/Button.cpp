@@ -53,3 +53,12 @@ void Button::SetXYCoord(int x, int y) {
 	x_coord = x;
 	y_coord = y;
 }
+
+bool Button::IsClicked(int x, int y) {
+	if (x <= (x_coord + width) && x >= x_coord) {
+		if (y <= (y_coord + height) && y >= y_coord) {
+			return true;
+		}
+	}
+	return false;
+}

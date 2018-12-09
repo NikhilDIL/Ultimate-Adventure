@@ -21,6 +21,7 @@ public:
 	void update();
 	void resize();
 	void SetXYCoord(int x, int y);
+	bool IsClicked(int x, int y); // pass in x & y mouse position
 	ofImage button;
 	ofImage prev_image;
 };
