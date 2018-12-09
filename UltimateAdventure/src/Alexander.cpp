@@ -2,12 +2,13 @@
 
 Alexander::Alexander() {}
 
-Alexander::Alexander(int x, int y, char t, int a, int d) {
-	xCoord = x;
-	yCoord = y;
+Alexander::Alexander(int x, int y, char t, int a, int d, int h) {
+	x_coord = x;
+	y_coord = y;
 	type = t;
-	SetAttack(a);
-	SetDefense(d);
+	attack_power = a;
+	defense_power = d;
+	health = h;
 }
 
 int Alexander::Attack() {
@@ -17,7 +18,7 @@ int Alexander::Attack() {
 	else {
 		made_action = true;
 	}
-	return GetAttack();
+	return attack_power;
 }
 
 void Alexander::Defend() {
@@ -27,7 +28,7 @@ void Alexander::Defend() {
 	else {
 		made_action = true;
 	}
-	SetDefense(5);
+	defense_power += 5;
 }
 
 int Alexander::StrongAttack() {
@@ -37,7 +38,7 @@ int Alexander::StrongAttack() {
 	if (special_attack_active) {
 		made_action = true;
 		special_attack_active = false;
-		int strong_attack = GetAttack() + 20;
+		int strong_attack = attack_power + 20;
 		return strong_attack;
 	}
 	else {
@@ -47,9 +48,7 @@ int Alexander::StrongAttack() {
 
 void Alexander::SpecialSkill() { 
 	if (special_skill_active) {
-		int current_attack = GetAttack();
-		int new_attack = current_attack + 10;
-		SetAttack(new_attack);
+		attack_power += 10;
 		special_skill_active = false;
 	}
 }
@@ -68,7 +67,7 @@ void Alexander::SetUp() {
 }
 
 void Alexander::draw() {
-	image.draw(xCoord, yCoord);
+	image.draw(x_coord, y_coord);
 }
 
 void Alexander::update() {}
@@ -77,30 +76,22 @@ void Alexander::SetDirection(Direction direction) {
 	// If the move is valid on the game engine board, then do the move. else return.
 	switch (direction) { 
 		case RIGHT: // move right
-			xCoord += 50;
+			x_coord += 50;
 			break;
 		case LEFT: // move left
-			xCoord -= 50;
+			x_coord -= 50;
 			break;
 		case DOWN: // move down
-			yCoord += 50;
+			y_coord += 50;
 			break;
 		case UP: // move up
-			yCoord -= 50;
+			y_coord -= 50;
 			break;
 	}
 }
 
 std::string Alexander::GetName() {
 	return "Alexander";
-}
-
-int Alexander::getGraphicalX() {
-	return xCoord;
-}
-
-int Alexander::getGraphicalY() {
-	return yCoord;
 }
 
 int Alexander::GetStepsPerTurn() {
@@ -111,16 +102,12 @@ void Alexander::DecrementStepsPerTurn() {
 	steps_per_turn--;
 }
 
-char Alexander::GetType() {
-	return type;
-}
-
 void Alexander::ResetCharacter() {
 	// resets steps and any buffs from previous turn
 	steps_per_turn = 3;
 	made_action = false;
-	SetAttack(15);
-	SetDefense(0);
+	attack_power = 15;
+	defense_power = 0;
 }
 
 void Alexander::DisplayInformation(int x, int y) {
@@ -129,8 +116,8 @@ void Alexander::DisplayInformation(int x, int y) {
 	std::string name = GetName();
 	transform(name.begin(), name.end(), name.begin(), ::toupper);
 	std::string health = "Health: " + to_string(GetHealth());
-	std::string attack = "Attack: " + to_string(GetAttack());
-	std::string defense = "Defense: " + to_string(GetDefense());
+	std::string attack = "Attack: " + to_string(attack_power);
+	std::string defense = "Defense: " + to_string(defense_power);
 	std::string special_skill = "Special Skill: (A)";
 	if (!special_skill_active) {
 		special_skill = "Special Skill: (U)";
