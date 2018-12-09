@@ -128,28 +128,8 @@ void ofApp::mouseDragged(int x, int y, int button) {
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
-	if (!IsButtonPressed(x, y)) {
-		// CHARACTER PRESSED
-		for (int i = 0; i < units.size(); i++) {
-			if (units[i] != nullptr) {
-				if (x <= (units[i]->getGraphicalX() + 50) && x >= units[i]->getGraphicalX()) {
-					if (y <= (units[i]->getGraphicalY() + 50) && y >= units[i]->getGraphicalY()) {
-						std::cout << "SELECTED A CHARACTER!" << std::endl;
-						if (units[i]->GetType() == 'H' && turn == HERO_TURN) { // a player selected a hero on Hero turn
-							current_character = i;
-						}
-						else if (units[i]->GetType() == 'E' && turn == ENEMY_TURN) { // a player selected a enemy on Enemy turn 
-							current_character = i;
-						}
-						else { // if we are controlling a character, allow another character to be selected so we can attack/do things to it.
-							selected_character = i;
-						}
-
-						break;
-					}
-				}
-			}
-		}
+	if (!IsButtonPressed(x, y)) { // check if a button was clicked
+		CheckCharactedClicked(x, y); // if a button was not clicked, then check if a character was clicked
 	}
 }
 
@@ -313,4 +293,27 @@ bool ofApp::IsButtonPressed(int x, int y) {
 	}
 
 	return false;
+}
+
+void ofApp::CheckCharactedClicked(int x, int y) {
+	// CHARACTER PRESSED
+	for (int i = 0; i < units.size(); i++) {
+		if (units[i] != nullptr) {
+			if (x <= (units[i]->getGraphicalX() + 50) && x >= units[i]->getGraphicalX()) {
+				if (y <= (units[i]->getGraphicalY() + 50) && y >= units[i]->getGraphicalY()) {
+					std::cout << "SELECTED A CHARACTER!" << std::endl;
+					if (units[i]->GetType() == 'H' && turn == HERO_TURN) { // a player selected a hero on Hero turn
+						current_character = i;
+					}
+					else if (units[i]->GetType() == 'E' && turn == ENEMY_TURN) { // a player selected a enemy on Enemy turn 
+						current_character = i;
+					}
+					else { // if we are controlling a character, allow another character to be selected so we can attack/do things to it.
+						selected_character = i;
+					}
+					break;
+				}
+			}
+		}
+	}
 }
