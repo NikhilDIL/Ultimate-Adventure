@@ -10,6 +10,7 @@ Alexander::Alexander(int x, int y, char t, int a, int d, int h, int s) {
 	defense_power = d;
 	health = h;
 	steps_per_turn = s;
+	attack.load("swordattack.flac");
 }
 
 int Alexander::Attack() {
@@ -18,6 +19,7 @@ int Alexander::Attack() {
 	}
 	else {
 		made_action = true;
+		attack.play();
 	}
 	return attack_power;
 }
@@ -40,6 +42,7 @@ int Alexander::StrongAttack() {
 		made_action = true;
 		special_attack_active = false;
 		int strong_attack = attack_power + 20;
+		attack.play();
 		return strong_attack;
 	}
 	else {
@@ -55,7 +58,7 @@ void Alexander::SpecialSkill() {
 }
 
 void Alexander::setup() {
-	image.load("randpic.png");
+	image.load("Alexander.png");
 	image.resize(50, 50);
 }
 

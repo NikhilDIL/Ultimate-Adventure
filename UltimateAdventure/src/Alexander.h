@@ -26,4 +26,5 @@ public:
 	void draw();
 	
 	ofImage image; // picture of the character
+	ofSoundPlayer attack;
 };
