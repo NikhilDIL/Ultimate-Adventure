@@ -37,6 +37,7 @@ class ofApp : public ofBaseApp{
 		void CharacterBattle(bool is_strong_attack);
 		bool IsButtonPressed(int x, int y);
 		void CheckCharactedClicked(int x, int y);
+		void DrawRocks();
 		
 	public:
 		void setup();
@@ -57,5 +58,6 @@ class ofApp : public ofBaseApp{
 
 		ofSoundPlayer background;
 		ofImage ground;
+		ofImage rock;
 		ofTrueTypeFont phase;
 };

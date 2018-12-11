@@ -36,6 +36,7 @@ void ofApp::draw() {
 	ground.load("stone.jpg");
 	ground.resize(500, 500);
 	ground.draw(200, 150);
+	DrawRocks();
 
 	// draw units
 	for (Character* character : units) {
@@ -314,6 +315,33 @@ void ofApp::CheckCharactedClicked(int x, int y) {
 					break;
 				}
 			}
+		}
+	}
+}
+
+void ofApp::DrawRocks() {
+	rock.load("Rock.png");
+	rock.resize(50, 50);
+	int temp_var = 200;
+	for (int i = 0; i < 4; i++) {
+		if (i % 2 == 0) {
+			rock.draw(temp_var, 450);
+			temp_var += 50;
+		}
+		else {
+			rock.draw(temp_var, 500);
+			temp_var += 50;
+		}
+	}
+	temp_var = 650;
+	for (int i = 0; i < 4; i++) {
+		if (i % 2 == 0) {
+			rock.draw(temp_var, 300);
+			temp_var -= 50;
+		}
+		else {
+			rock.draw(temp_var, 350);
+			temp_var -= 50;
 		}
 	}
 }
