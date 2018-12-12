@@ -14,12 +14,12 @@ typedef enum {
 
 class ofApp : public ofBaseApp {
 private:
+	// CORRECT VERSION
 	GameEngine *engine;
 	std::vector<Character*> units;
 	int current_character = -1; // character the player has selected to give commands to
 	int selected_character = -1; // character of the opposing team
-	bool is_successful_attack;
-	bool is_true_valid;
+	bool is_successful_attack = false;
 
 	// all buttons in game
 	Button attack_button;
@@ -40,6 +40,7 @@ private:
 	bool IsButtonPressed(int x, int y);
 	void CheckCharactedClicked(int x, int y);
 	void DrawRocks();
+	void DrawAttackAnimation(int x, int y);
 
 public:
 	void setup();

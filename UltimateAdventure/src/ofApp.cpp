@@ -69,6 +69,12 @@ void ofApp::draw() {
 		DrawInformationDisplayBox(15, 400, units[selected_character]->GetType());
 		units[selected_character]->DisplayInformation(20, 420);
 	}
+
+	if (is_successful_attack) {
+		int x = units[selected_character]->getGraphicalX();
+		int y = units[selected_character]->getGraphicalY();
+		DrawAttackAnimation(x, y);
+	}
 	
 }
 
@@ -136,7 +142,7 @@ void ofApp::mousePressed(int x, int y, int button) {
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button) {
-
+	is_successful_attack = false;
 }
 
 //--------------------------------------------------------------
@@ -242,7 +248,9 @@ void ofApp::CharacterBattle(bool is_strong_attack) {
 		std::cout << "victim_x " << victim_x << std::endl;
 		std::cout << "victim_y " << victim_y << std::endl;
 
-		engine->ConductBattle(attack_x, attack_y, victim_x, victim_y, is_strong_attack);
+		if (engine->ConductBattle(attack_x, attack_y, victim_x, victim_y, is_strong_attack)) {
+			is_successful_attack = true;
+		}
 		if (units[selected_character]->GetHealth() <= 0) { // if victim's health is <= 0, remove character from field
 			delete units[selected_character]; // remove character from graphical
 			units[selected_character] = nullptr;
@@ -344,4 +352,8 @@ void ofApp::DrawRocks() {
 			temp_var -= 50;
 		}
 	}
+}
+
+void ofApp::DrawAttackAnimation(int x, int y) {
+	ofDrawRectangle(x, y, 50, 50);
 }
