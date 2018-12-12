@@ -18,6 +18,8 @@ GameEngine::GameEngine(const std::vector<Character*> &characters) {
 		int c = character->GetCol();
 		battlefield[r][c] = character;
 	}
+
+	SetUpBlockedLocations(); // sets up blocked locations on the map
 }
 
 GameEngine::~GameEngine() {}
@@ -54,6 +56,9 @@ bool GameEngine::IsValidMove(Direction direction, int character_index) {
 	}
 	// if there's a character or obstacle at that location, return false.
 	if (battlefield[currRow][currCol] != nullptr) {
+		return false;
+	}
+	else if (IsBlockedLocation(currRow, currCol)) { // if there's a obstacle in that position, return false
 		return false;
 	}
 	return true;
@@ -98,30 +103,12 @@ bool GameEngine::MoveCharacter(int direction, int character_index) {
 
 bool GameEngine::IsValidAttack(int attack_x, int attack_y, int victim_x, int victim_y, int character_range) {
 	// x is row, y is col
-	int front = attack_x - character_range;
-	int back = attack_x + character_range;
-	int left = attack_y - character_range;
-	int right = attack_y + character_range;
-
-	if (!(front >= kRowSize) && !(front < 0)) {
-		if (battlefield[victim_x][victim_y] == battlefield[front][attack_y]) {
-			return true;
-		}
-	}
-	if (!(back >= kColSize) && !(back < 0)) {
-		if (battlefield[victim_x][victim_y] == battlefield[back][attack_y]) {
-			return true;
-		}
-	}
-	if (!(left >= kColSize) && !(left < 0)) {
-		if (battlefield[victim_x][victim_y] == battlefield[attack_x][left]) {
-			return true;
-		}
-	}
-	if (!(right >= kColSize) && !(right < 0)) {
-		if (battlefield[victim_x][victim_y] == battlefield[attack_x][right]) {
-			return true;
-		}
+	int a = (attack_x - victim_x) * (attack_x - victim_x);
+	int b = (attack_y - victim_y) * (attack_y - victim_y);
+	int distance = sqrt(a + b);
+	std::cout << distance << std::endl;
+	if ((distance <= battlefield[attack_x][attack_y]->GetAttackRange()) && !(distance <= 0)) {
+		return true;
 	}
 	return false;
 }
@@ -164,7 +151,7 @@ void GameEngine::RemoveCharacter(int x, int y, int character_index) {
 
 void GameEngine::SetUpBlockedLocations() {
 	// initialize vector to instances of XYLocation struct
-	for (int i = 0; i < 4; i++) { 
+	for (int i = 0; i < 8; i++) { 
 		blocked_locations.push_back(XYLocation());
 	}
 
@@ -179,6 +166,20 @@ void GameEngine::SetUpBlockedLocations() {
 		}
 		else {
 			row_number--;
+		}
+	}
+
+	row_number = 4;
+	col_number = 6;
+	for (int i = 4; i < 8; i++) {
+		blocked_locations[i].row_pos = row_number;
+		blocked_locations[i].col_pos = col_number;
+		col_number++;
+		if (i % 2 == 0) {
+			row_number--;
+		}
+		else {
+			row_number++;
 		}
 	}
 }

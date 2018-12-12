@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <math.h>
 #include "Character.h"
 #include "Alexander.h"
 #include "Direction.h"
