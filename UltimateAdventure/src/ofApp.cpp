@@ -211,19 +211,19 @@ void ofApp::DrawInformationDisplayBox(int x, int y, char type) {
 }
 
 void ofApp::InitHeroes() {
-	Character* character = new Alexander(200, 600, 'H', 15, 0, 50, 3);
+	Character* character = new Alexander(200, 600, 'H', 15, 0, 50, 3, 1);
 	character->SetCol(0);
 	character->SetRow(9);
 	units.push_back(character);
 
-	Character* character2 = new Alexander(250, 600, 'H', 20, 0, 70, 3);
+	Character* character2 = new Alexander(250, 600, 'H', 20, 0, 70, 3, 3);
 	character2->SetCol(1);
 	character2->SetRow(9);
 	units.push_back(character2);
 }
 
 void ofApp::InitEnemies() {
-	Character* character = new Alexander(350, 600, 'E', 15, 0, 50, 3);
+	Character* character = new Alexander(350, 600, 'E', 15, 0, 50, 3, 1);
 	character->SetCol(3);
 	character->SetRow(9);
 	units.push_back(character);
