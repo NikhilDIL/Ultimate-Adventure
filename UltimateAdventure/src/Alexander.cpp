@@ -54,6 +54,7 @@ int Alexander::StrongAttack() {
 void Alexander::SpecialSkill() { 
 	if (special_skill_active) {
 		attack_power += 10;
+		steps_per_turn++;
 		special_skill_active = false;
 	}
 }
@@ -95,21 +96,23 @@ void Alexander::DisplayInformation(int x, int y) {
 	std::string display_health = "Health: " + to_string(health);
 	std::string attack = "Attack: " + to_string(attack_power);
 	std::string defense = "Defense: " + to_string(defense_power);
+	std::string steps_left = "Steps Left: " + to_string(steps_per_turn);
 	std::string special_skill = "Special Skill: (A)";
 	if (!special_skill_active) {
 		special_skill = "Special Skill: (U)";
 	}
-	special_skill = special_skill + "\nAttack +10";
+	special_skill = special_skill + "\nAttack +10. \nSteps + 1";
 	std::string strong_attack = "Strong Attack: (A)";
 	if (!special_attack_active) {
 		strong_attack = "Strong Attack: (U)";
 	}
-	strong_attack = strong_attack + "\nDeals 25 damage";
+	strong_attack = strong_attack + "\nAttack + 25 damage";
 
 	std::vector<std::string> stats;
 	stats.push_back(display_health);
 	stats.push_back(attack);
 	stats.push_back(defense);
+	stats.push_back(steps_left);
 	stats.push_back(special_skill);
 	stats.push_back(strong_attack);
 		
@@ -119,7 +122,7 @@ void Alexander::DisplayInformation(int x, int y) {
 		ofDrawBitmapString(stat, x, y);
 		y += 15;
 		if (stat.compare(special_skill) == 0 || stat.compare(strong_attack) == 0) {
-			y += 15;
+			y += 30;
 		}
 	}
 }
