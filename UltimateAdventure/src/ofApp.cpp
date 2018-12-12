@@ -236,9 +236,9 @@ void ofApp::InitHeroes() {
 }
 
 void ofApp::InitEnemies() {
-	Character* character = new Alexander(600, 150, 'E', 15, 0, 50, 3, 1);
-	character->SetCol(4);
-	character->SetRow(9);
+	Character* character = new Adrian(600, 150, 'E', 15, 0, 35, 2, 2);
+	character->SetCol(8);
+	character->SetRow(0);
 	units.push_back(character);
 }
 
