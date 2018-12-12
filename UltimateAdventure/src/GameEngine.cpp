@@ -163,15 +163,10 @@ void GameEngine::RemoveCharacter(int x, int y, int character_index) {
 
 
 void GameEngine::SetUpBlockedLocations() {
-	for (int i = 0; i < 4; i++) {
+	// initialize vector to instances of XYLocation struct
+	for (int i = 0; i < 4; i++) { 
 		blocked_locations.push_back(XYLocation());
 	}
-	blocked_locations[0].row_pos = 6;
-	blocked_locations[0].col_pos = 0;
-	blocked_locations[1].row_pos = 7;
-	blocked_locations[1].col_pos = 1;
-	blocked_locations[1].row_pos = 7;
-	blocked_locations[1].col_pos = 1;
 
 	int row_number = 6;
 	int col_number = 0;
@@ -186,4 +181,13 @@ void GameEngine::SetUpBlockedLocations() {
 			row_number--;
 		}
 	}
+}
+
+bool GameEngine::IsBlockedLocation(int r, int c) {
+	for (XYLocation location : blocked_locations) {
+		if ((location.col_pos == c) && (location.row_pos == r)) {
+			return true;
+		}
+	}
+	return false;
 }

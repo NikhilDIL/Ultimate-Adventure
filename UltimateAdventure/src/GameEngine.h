@@ -28,4 +28,5 @@ public:
 	bool ConductBattle(int attack_x, int attack_y, int victim_x, int victim_y, bool is_strong_attack); // conducts battle between two characters
 	void RemoveCharacter(int x, int y, int character_index); // removes character from battle field. used when character dies
 	void SetUpBlockedLocations(); // sets up blocked locations on the map
+	bool IsBlockedLocation(int r, int c); // checks to see if the given position is a blocked position on the map
 };
