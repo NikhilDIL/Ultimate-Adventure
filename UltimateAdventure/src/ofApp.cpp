@@ -14,9 +14,9 @@ void ofApp::setup() {
 	background.load("prolouge.mp3");
 	background.play();
 	background.setLoop(true);
-	units[0]->SetUp();
-	units[1]->SetUp();
-	units[2]->SetUp();
+	for (Character* character : units) {
+		character->SetUp();
+	}
 
 	InitButtons();
 	phase.load("PhaseFont.ttf", 50);
@@ -224,15 +224,20 @@ void ofApp::InitHeroes() {
 	character->SetRow(9);
 	units.push_back(character);
 
-	Character* character2 = new Alexander(250, 600, 'H', 20, 0, 70, 3, 3);
+	Character* character2 = new Cayden(250, 600, 'H', 10, 5, 60, 3, 1);
 	character2->SetCol(1);
 	character2->SetRow(9);
 	units.push_back(character2);
+
+	Character* character3 = new Andrew(300, 600, 'H', 15, 0, 40, 2, 2);
+	character3->SetCol(2);
+	character3->SetRow(9);
+	units.push_back(character3);
 }
 
 void ofApp::InitEnemies() {
-	Character* character = new Alexander(350, 600, 'E', 15, 0, 50, 3, 1);
-	character->SetCol(3);
+	Character* character = new Alexander(600, 150, 'E', 15, 0, 50, 3, 1);
+	character->SetCol(4);
 	character->SetRow(9);
 	units.push_back(character);
 }

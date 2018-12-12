@@ -3,6 +3,8 @@
 #include "GameEngine.h"
 #include "Character.h"
 #include "Alexander.h"
+#include "Cayden.h"
+#include "Andrew.h"
 #include "Direction.h"
 #include "Button.h"
 
