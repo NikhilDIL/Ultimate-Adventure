@@ -18,6 +18,8 @@ private:
 	std::vector<Character*> units;
 	int current_character = -1; // character the player has selected to give commands to
 	int selected_character = -1; // character of the opposing team
+	bool is_successful_attack;
+	bool is_true_valid;
 
 	// all buttons in game
 	Button attack_button;
@@ -61,4 +63,3 @@ public:
 	ofImage rock;
 	ofTrueTypeFont phase;
 };
-
