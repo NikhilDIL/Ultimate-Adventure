@@ -25,7 +25,7 @@ GameEngine::~GameEngine() {}
 void GameEngine::MoveCharacters() {}
 
 bool GameEngine::IsValidMove(Direction direction, int character_index) {
-	// CHECK IF CHARACTER HAS ANY MOVES LEFT FOR THE TURN. 3 FOR WARRIOR, 2 FOR MAGE, 1 FOR TANK
+	// CHECK IF CHARACTER HAS ANY MOVES LEFT FOR THE TURN.
 	// get current row and column location of character
 	int currRow = character_list[character_index]->GetRow();
 	int currCol = character_list[character_index]->GetCol();
@@ -159,4 +159,31 @@ bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int vic
 void GameEngine::RemoveCharacter(int x, int y, int character_index) {
 	battlefield[x][y] = nullptr;
 	character_list[character_index] = nullptr;
+}
+
+
+void GameEngine::SetUpBlockedLocations() {
+	for (int i = 0; i < 4; i++) {
+		blocked_locations.push_back(XYLocation());
+	}
+	blocked_locations[0].row_pos = 6;
+	blocked_locations[0].col_pos = 0;
+	blocked_locations[1].row_pos = 7;
+	blocked_locations[1].col_pos = 1;
+	blocked_locations[1].row_pos = 7;
+	blocked_locations[1].col_pos = 1;
+
+	int row_number = 6;
+	int col_number = 0;
+	for (int i = 0; i < 4; i++) {
+		blocked_locations[i].row_pos = row_number;
+		blocked_locations[i].col_pos = col_number;
+		col_number++;
+		if (i % 2 == 0) {
+			row_number++;
+		}
+		else {
+			row_number--;
+		}
+	}
 }
