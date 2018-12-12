@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "ofMain.h"
 #include "GameEngine.h"
 #include "Character.h"
@@ -19,7 +18,6 @@ private:
 	std::vector<Character*> units;
 	int current_character = -1; // character the player has selected to give commands to
 	int selected_character = -1; // character of the opposing team
-	bool is_successful_attack;
 
 	// all buttons in game
 	Button attack_button;
