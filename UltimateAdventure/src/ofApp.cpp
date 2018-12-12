@@ -70,12 +70,14 @@ void ofApp::draw() {
 		units[selected_character]->DisplayInformation(20, 420);
 	}
 
-	if (is_successful_attack) {
-		int x = units[selected_character]->getGraphicalX();
-		int y = units[selected_character]->getGraphicalY();
-		DrawAttackAnimation(x, y);
-	}
-	
+	// small animation whenever a character is attacked
+	if (is_successful_attack) { 
+		if (selected_character != -1) {
+			int x = units[selected_character]->getGraphicalX();
+			int y = units[selected_character]->getGraphicalY();
+			DrawAttackAnimation(x, y);
+		}
+	}	
 }
 
 //--------------------------------------------------------------
@@ -355,5 +357,6 @@ void ofApp::DrawRocks() {
 }
 
 void ofApp::DrawAttackAnimation(int x, int y) {
+	ofSetColor(255, 0, 0);
 	ofDrawRectangle(x, y, 50, 50);
 }
