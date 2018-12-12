@@ -40,8 +40,8 @@ void Button::draw() {
 }
 
 void Button::resize() {
-	int x = width - 10;
-	int y = height - 10;
+	int x = width - 5;
+	int y = height - 5;
 	button.resize(x, y);
 }
 
