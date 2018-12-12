@@ -130,6 +130,10 @@ bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int vic
 			return false;
 		}
 		int victim_health = battlefield[victim_x][victim_y]->GetHealth();
+		int victim_defense = battlefield[victim_x][victim_y]->GetDefense();
+		if (victim_defense >= damage) { // if defense is greater than damage, then no damage is done
+			return true;
+		}
 		int new_health = victim_health - damage;
 		battlefield[victim_x][victim_y]->SetHealth(new_health);
 		std::cout << "new_health " << battlefield[victim_x][victim_y]->GetHealth() << std::endl;
