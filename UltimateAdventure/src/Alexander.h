@@ -8,7 +8,7 @@
 class Alexander : public Character {
 public:
 	Alexander(); // default constructor
-	Alexander(int x, int y, char t, int a, int d, int h, int s);
+	Alexander(int x, int y, char t, int a, int d, int h, int s, int range);
 
 	// Implementations of all the virtual functions
 	int Attack();
@@ -26,5 +26,5 @@ public:
 	void draw();
 	
 	ofImage image; // picture of the character
-	ofSoundPlayer attack;
+	ofSoundPlayer attack; // sound played when character attacks
 };

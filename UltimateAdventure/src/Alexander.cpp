@@ -2,7 +2,7 @@
 
 Alexander::Alexander() {}
 
-Alexander::Alexander(int x, int y, char t, int a, int d, int h, int s) {
+Alexander::Alexander(int x, int y, char t, int a, int d, int h, int s, int range) {
 	x_coord = x;
 	y_coord = y;
 	type = t;
@@ -10,6 +10,7 @@ Alexander::Alexander(int x, int y, char t, int a, int d, int h, int s) {
 	defense_power = d;
 	health = h;
 	steps_per_turn = s;
+	attack_range = range;
 	attack.load("swordattack.flac");
 }
 
@@ -81,9 +82,9 @@ std::string Alexander::GetName() {
 void Alexander::ResetCharacter() {
 	// resets steps and any buffs from previous turn
 	steps_per_turn = 3;
-	made_action = false;
 	attack_power = 15;
 	defense_power = 0;
+	made_action = false;
 }
 
 void Alexander::DisplayInformation(int x, int y) {
@@ -91,7 +92,7 @@ void Alexander::DisplayInformation(int x, int y) {
 	int Y = y;
 	std::string name = GetName();
 	transform(name.begin(), name.end(), name.begin(), ::toupper);
-	std::string health = "Health: " + to_string(GetHealth());
+	std::string display_health = "Health: " + to_string(health);
 	std::string attack = "Attack: " + to_string(attack_power);
 	std::string defense = "Defense: " + to_string(defense_power);
 	std::string special_skill = "Special Skill: (A)";
@@ -106,7 +107,7 @@ void Alexander::DisplayInformation(int x, int y) {
 	strong_attack = strong_attack + "\nDeals 25 damage";
 
 	std::vector<std::string> stats;
-	stats.push_back(health);
+	stats.push_back(display_health);
 	stats.push_back(attack);
 	stats.push_back(defense);
 	stats.push_back(special_skill);

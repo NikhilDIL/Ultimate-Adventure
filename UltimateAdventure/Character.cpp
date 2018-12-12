@@ -82,3 +82,7 @@ void Character::DecrementStepsPerTurn() {
 	steps_per_turn--;
 }
 
+int Character::GetAttackRange() {
+	return attack_range;
+}
+

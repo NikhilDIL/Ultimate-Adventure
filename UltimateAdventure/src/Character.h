@@ -15,6 +15,7 @@ protected:
 	int attack_power;
 	int defense_power;
 	int steps_per_turn;
+	int attack_range;
 	bool made_action = false; // has character attacked or defended this turn
 	bool special_skill_active = true;
 	bool special_attack_active = true;
@@ -55,4 +56,6 @@ public:
 	int GetAttack();
 	void SetDefense(int d);
 	int GetDefense();
+
+	int GetAttackRange();	
 };
