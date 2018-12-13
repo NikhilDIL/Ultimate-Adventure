@@ -1,24 +1,34 @@
-https://www.flooranddecor.com/laminate-laminate/opal-stone-laminate-944101160.html  - background
+BACKGROUND/MAP
+-----------
+https://www.flooranddecor.com/laminate-laminate/opal-stone-laminate-944101160.html - battlefield
+https://opengameart.org/content/a-layered-asteroid-rock - rock
 
-https://www.pinterest.co.kr/pin/250231323026609083/     - Alexander
+CHARACTERS
+-----------
+http://pixelartmaker.com/art/98743367cf0222c  - Alexander
 
 https://www.deviantart.com/piskelknight/art/Pixel-Greek-Warrior-767868013   - Cayden
 
+https://opengameart.org/content/mage-1  - Andrew
+
+http://pixelartmaker.com/art/dd96426ea82292b - Abbadon
+
+http://pixelartmaker.com/art/5964d95687402fc - Khrone
+
+http://pixelartmaker.com/art/ac571ad3659029f  - Adrian
+
+SOUNDS
+--------
+https://opengameart.org/content/fireball-1  -  Mage attack
+
+https://opengameart.org/content/knife-sharpening-slice-1  - Sword attack
+
+BUTTONS
+--------
+https://opengameart.org/content/markeus-b-ui-buttons  - Attack, Strong Attack, and Special Skill buttons
 
 
 
-http://pixelartmaker.com/art/98743367cf0222c - Good tank guy
 
-https://opengameart.org/content/mage-1  - mage
-
-http://pixelartmaker.com/art/ac571ad3659029f  - dark mage
-
-
-https://opengameart.org/content/a-layered-asteroid-rock - rock art
-
-
-https://opengameart.org/content/fireball-1   -  Mage attack
-
-https://opengameart.org/content/knife-sharpening-slice-1   - Sword attack
 
 
