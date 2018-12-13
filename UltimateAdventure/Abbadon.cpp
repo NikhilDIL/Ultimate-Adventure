@@ -17,8 +17,7 @@ Abbadon::Abbadon(int x, int y, char t, int a, int d, int h, int s, int range) {
 int Abbadon::Attack() {
 	if (made_action) { // if character has already made a move this turn
 		return -1;
-	}
-	else {
+	} else {
 		made_action = true;
 		attack.play();
 	}
@@ -28,8 +27,7 @@ int Abbadon::Attack() {
 void Abbadon::Defend() {
 	if (made_action) { // if character has already made a move this turn
 		return;
-	}
-	else {
+	} else {
 		made_action = true;
 	}
 	defense_power += 5;
@@ -46,8 +44,7 @@ int Abbadon::StrongAttack() {
 		health -= 10;
 		attack.play();
 		return strong_attack;
-	}
-	else {
+	} else {
 		return -1;
 	}
 }
@@ -119,7 +116,7 @@ void Abbadon::DisplayInformation(int x, int y) {
 	stats.push_back(special_skill);
 	stats.push_back(strong_attack);
 
-	ofDrawBitmapString("   " + name, x, y);
+	ofDrawBitmapString("     " + name, x, y);
 	y += 15;
 	for (std::string stat : stats) {
 		ofDrawBitmapString(stat, x, y);

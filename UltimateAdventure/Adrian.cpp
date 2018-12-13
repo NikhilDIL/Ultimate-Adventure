@@ -17,8 +17,7 @@ Adrian::Adrian(int x, int y, char t, int a, int d, int h, int s, int range) {
 int Adrian::Attack() {
 	if (made_action) { // if character has already made a move this turn
 		return -1;
-	}
-	else {
+	} else {
 		made_action = true;
 		attack.play();
 	}
@@ -28,8 +27,7 @@ int Adrian::Attack() {
 void Adrian::Defend() {
 	if (made_action) { // if character has already made a move this turn
 		return;
-	}
-	else {
+	} else {
 		made_action = true;
 	}
 	defense_power += 5;
@@ -45,8 +43,7 @@ int Adrian::StrongAttack() {
 		int strong_attack = attack_power + 15;
 		attack.play();
 		return strong_attack;
-	}
-	else {
+	} else {
 		return -1;
 	}
 }
@@ -98,6 +95,7 @@ void Adrian::DisplayInformation(int x, int y) {
 	std::string attack = "Attack: " + to_string(attack_power);
 	std::string defense = "Defense: " + to_string(defense_power);
 	std::string steps_left = "Steps Left: " + to_string(steps_per_turn);
+	std::string range = "Range: " + to_string(attack_range);
 	std::string special_skill = "Special Skill: (A)";
 	if (!special_skill_active) {
 		special_skill = "Special Skill: (U)";
@@ -114,10 +112,11 @@ void Adrian::DisplayInformation(int x, int y) {
 	stats.push_back(attack);
 	stats.push_back(defense);
 	stats.push_back(steps_left);
+	stats.push_back(range);
 	stats.push_back(special_skill);
 	stats.push_back(strong_attack);
 
-	ofDrawBitmapString("   " + name, x, y);
+	ofDrawBitmapString("     " + name, x, y);
 	y += 15;
 	for (std::string stat : stats) {
 		ofDrawBitmapString(stat, x, y);
