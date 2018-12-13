@@ -2,7 +2,6 @@
 
 Character::Character() {}
 
-
 int Character::GetRow() {
 	return row;
 }
@@ -20,8 +19,6 @@ void Character::SetCol(int c) {
 }
 
 void Character::SetHealth(int h) {
-	std::cout << "defense_power: " << defense_power << std::endl;
-	std::cout << "h: " << h << std::endl;
 	health = h + defense_power;
 }
 
@@ -59,18 +56,18 @@ char Character::GetType() {
 void Character::SetDirection(Direction direction) {
 	// If the move is valid on the game engine board, then do the move. else return.
 	switch (direction) {
-	case RIGHT: // move right
-		x_coord += 50;
-		break;
-	case LEFT: // move left
-		x_coord -= 50;
-		break;
-	case DOWN: // move down
-		y_coord += 50;
-		break;
-	case UP: // move up
-		y_coord -= 50;
-		break;
+		case RIGHT: // move right
+			x_coord += 50;
+			break;
+		case LEFT: // move left
+			x_coord -= 50;
+			break;
+		case DOWN: // move down
+			y_coord += 50;
+			break;
+		case UP: // move up
+			y_coord -= 50;
+			break;
 	}
 }
 
