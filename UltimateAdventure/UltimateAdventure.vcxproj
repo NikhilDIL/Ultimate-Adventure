@@ -180,8 +180,13 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Abbadon.cpp" />
+    <ClCompile Include="Adrian.cpp" />
+    <ClCompile Include="Andrew.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Cayden.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Khrone.cpp" />
     <ClCompile Include="src\Alexander.cpp" />
     <ClCompile Include="src\GameEngine.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -200,8 +205,8 @@
   <ItemGroup>
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ofApp.h" />
     <ClInclude Include="XYLocation.h" />
-    <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="src\Alexander.h" />
     <ClInclude Include="src\Character.h" />
     <ClInclude Include="src\GameEngine.h" />
