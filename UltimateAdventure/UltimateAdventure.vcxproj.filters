@@ -55,6 +55,21 @@
     <ClCompile Include="Button.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Cayden.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Andrew.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Adrian.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Khrone.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Abbadon.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -71,9 +86,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ofApp.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\Alexander.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -81,9 +93,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ofApp.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\of_v0.10.0_vs2017_release\addons\ofxGui\src\ofxBaseGui.h">
@@ -126,6 +135,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="XYLocation.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="ofApp.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
