@@ -55,8 +55,7 @@ void ofApp::draw() {
 	// display turn
 	if (turn == HERO_TURN) {
 		phase.drawString("HERO TURN", 260, 125);
-	}
-	else if (turn == ENEMY_TURN) {
+	} else if (turn == ENEMY_TURN) {
 		phase.drawString("ENEMY TURN", 235, 125);
 	}
 
@@ -94,22 +93,19 @@ void ofApp::keyPressed(int key) {
 					engine->MoveCharacter(UP, current_character);
 					units[current_character]->DecrementStepsPerTurn();
 				}
-			}
-			else if (upper_key == 'A') {
+			} else if (upper_key == 'A') {
 				if (engine->IsValidMove(LEFT, current_character)) {
 					units[current_character]->SetDirection(LEFT);
 					engine->MoveCharacter(LEFT, current_character);
 					units[current_character]->DecrementStepsPerTurn();
 				}
-			}
-			else if (upper_key == 'S') {
+			} else if (upper_key == 'S') {
 				if (engine->IsValidMove(DOWN, current_character)) {
 					units[current_character]->SetDirection(DOWN);
 					engine->MoveCharacter(DOWN, current_character);
 					units[current_character]->DecrementStepsPerTurn();
 				}
-			}
-			else if (upper_key == 'D') {
+			} else if (upper_key == 'D') {
 				if (engine->IsValidMove(RIGHT, current_character)) {
 					units[current_character]->SetDirection(RIGHT);
 					engine->MoveCharacter(RIGHT, current_character);
@@ -119,20 +115,6 @@ void ofApp::keyPressed(int key) {
 			units[current_character]->Draw();
 		}
 	}
-}
-
-//--------------------------------------------------------------
-void ofApp::keyReleased(int key) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y) {
-	
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button) {
 }
 
 //--------------------------------------------------------------
@@ -147,30 +129,6 @@ void ofApp::mouseReleased(int x, int y, int button) {
 	is_successful_attack = false;
 }
 
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo) {
-
-}
 
 void ofApp::InitButtons() {
 	attack_button = Button(725, 530, 50, 50);
@@ -189,11 +147,9 @@ void ofApp::ResetCharacters(TeamTurn turn) {
 	char type = '\0';
 	if (turn == HERO_TURN) {
 		type = 'H';
-	}
-	else if (turn == ENEMY_TURN) {
+	} else if (turn == ENEMY_TURN) {
 		type = 'E';
-	}
-	else {
+	} else {
 		return;
 	}
 
@@ -210,8 +166,7 @@ void ofApp::ResetCharacters(TeamTurn turn) {
 void ofApp::DrawInformationDisplayBox(int x, int y, char type) {
 	if (type == 'H') {
 		ofSetColor(0, 153, 51);
-	}
-	else {
+	} else {
 		ofSetColor(255, 0, 0);
 	}
 	ofNoFill();
@@ -245,6 +200,11 @@ void ofApp::InitEnemies() {
 	character2->SetCol(7);
 	character2->SetRow(0);
 	units.push_back(character2);
+
+	Character* character3 = new Abbadon(500, 150, 'E', 20, 0, 65, 3, 1);
+	character3->SetCol(6);
+	character3->SetRow(0);
+	units.push_back(character3);
 }
 
 void ofApp::CharacterBattle(bool is_strong_attack) {
@@ -255,11 +215,6 @@ void ofApp::CharacterBattle(bool is_strong_attack) {
 		int victim_x = units[selected_character]->GetRow();
 		int victim_y = units[selected_character]->GetCol();
 
-		std::cout << "attack_x " << attack_x << std::endl;
-		std::cout << "attack_y " << attack_y << std::endl;
-		std::cout << "victim_x " << victim_x << std::endl;
-		std::cout << "victim_y " << victim_y << std::endl;
-
 		if (engine->ConductBattle(attack_x, attack_y, victim_x, victim_y, is_strong_attack)) {
 			is_successful_attack = true;
 		}
@@ -269,8 +224,6 @@ void ofApp::CharacterBattle(bool is_strong_attack) {
 			engine->RemoveCharacter(victim_x, victim_y, selected_character); // removes character from battlefield array
 			selected_character = -1; // reset selected_character
 		}
-		// if ConductBattle was successful, do an animation graphically for the attack
-		// if the victim happens to be killed in the battle, then remove them graphically and from the battlefield
 	}
 }
 
@@ -305,8 +258,7 @@ bool ofApp::IsButtonPressed(int x, int y) {
 	if (pass_turn.IsClicked(x, y)) {
 		if (turn == HERO_TURN) {
 			turn = ENEMY_TURN;
-		}
-		else {
+		} else {
 			turn = HERO_TURN;
 		}
 		ResetCharacters(turn);
@@ -322,14 +274,11 @@ void ofApp::CheckCharactedClicked(int x, int y) {
 		if (units[i] != nullptr) {
 			if (x <= (units[i]->getGraphicalX() + 50) && x >= units[i]->getGraphicalX()) {
 				if (y <= (units[i]->getGraphicalY() + 50) && y >= units[i]->getGraphicalY()) {
-					std::cout << "SELECTED A CHARACTER!" << std::endl;
 					if (units[i]->GetType() == 'H' && turn == HERO_TURN) { // a player selected a hero on Hero turn
 						current_character = i;
-					}
-					else if (units[i]->GetType() == 'E' && turn == ENEMY_TURN) { // a player selected a enemy on Enemy turn 
+					} else if (units[i]->GetType() == 'E' && turn == ENEMY_TURN) { // a player selected a enemy on Enemy turn 
 						current_character = i;
-					}
-					else { // if we are controlling a character, allow another character to be selected so we can attack/do things to it.
+					} else { // if we are controlling a character, allow another character to be selected so we can attack/do things to it.
 						selected_character = i;
 					}
 					break;
@@ -347,8 +296,7 @@ void ofApp::DrawRocks() {
 		if (i % 2 == 0) {
 			rock.draw(temp_var, 450);
 			temp_var += 50;
-		}
-		else {
+		} else {
 			rock.draw(temp_var, 500);
 			temp_var += 50;
 		}
@@ -358,8 +306,7 @@ void ofApp::DrawRocks() {
 		if (i % 2 == 0) {
 			rock.draw(temp_var, 300);
 			temp_var -= 50;
-		}
-		else {
+		} else {
 			rock.draw(temp_var, 350);
 			temp_var -= 50;
 		}
