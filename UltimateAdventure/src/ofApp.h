@@ -6,6 +6,7 @@
 #include "Cayden.h"
 #include "Andrew.h"
 #include "Adrian.h"
+#include "Khrone.h"
 #include "Direction.h"
 #include "Button.h"
 

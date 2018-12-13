@@ -229,17 +229,22 @@ void ofApp::InitHeroes() {
 	character2->SetRow(9);
 	units.push_back(character2);
 
-	Character* character3 = new Andrew(300, 600, 'H', 15, 0, 40, 2, 2);
+	Character* character3 = new Andrew(300, 600, 'H', 15, 0, 40, 2, 3);
 	character3->SetCol(2);
 	character3->SetRow(9);
 	units.push_back(character3);
 }
 
 void ofApp::InitEnemies() {
-	Character* character = new Adrian(600, 150, 'E', 15, 0, 35, 2, 2);
+	Character* character = new Adrian(600, 150, 'E', 15, 0, 35, 2, 3);
 	character->SetCol(8);
 	character->SetRow(0);
 	units.push_back(character);
+
+	Character* character2 = new Khrone(550, 150, 'E', 15, 0, 50, 3, 1);
+	character2->SetCol(7);
+	character2->SetRow(0);
+	units.push_back(character2);
 }
 
 void ofApp::CharacterBattle(bool is_strong_attack) {
