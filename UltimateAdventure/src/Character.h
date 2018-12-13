@@ -8,10 +8,10 @@ private:
 	int col; // col position on 2d battlefield array
 
 protected:
-	int health;
-	int x_coord; // graphical x
-	int y_coord; // graphical y
-	char type;
+	int health; 
+	int x_coord; // graphical x position
+	int y_coord; // graphical y position
+	char type; // type of the character H or E. H is Hero, E is Enemy
 	int attack_power;
 	int defense_power;
 	int steps_per_turn;
@@ -23,18 +23,18 @@ protected:
 public:
 	Character(); // default constructor
 	// All common among all unit classes
-	virtual int Attack() = 0;
-	virtual void Defend() = 0;
-	virtual int StrongAttack() = 0;
-	virtual void SpecialSkill() = 0;
-	virtual void Draw() = 0;
-	virtual void SetUp() = 0;
+	virtual int Attack() = 0; // basic character attack
+	virtual void Defend() = 0; // basic character defense
+	virtual int StrongAttack() = 0; // stronger version of attack
+	virtual void SpecialSkill() = 0; // character's special skill which gives them buffs
+	virtual void Draw() = 0; // draw character on the field
+	virtual void SetUp() = 0; // setup character
 	virtual std::string GetName() = 0; // returns name of character
-	virtual void ResetCharacter() = 0;
-	virtual void DisplayInformation(int x, int y) = 0;
+	virtual void ResetCharacter() = 0; // reset the character
+	virtual void DisplayInformation(int x, int y) = 0; // display information of a character
 
-	int GetStepsPerTurn();
-	void DecrementStepsPerTurn();
+	int GetStepsPerTurn(); // returns number of steps a character can make during a turn
+	void DecrementStepsPerTurn(); // decreases the number of steps per tun by 1
 
 	void SetDirection(Direction direction);
 	char GetType(); // Hero or Enemy type
@@ -57,5 +57,5 @@ public:
 	void SetDefense(int d);
 	int GetDefense();
 
-	int GetAttackRange();	
+	int GetAttackRange();
 };
