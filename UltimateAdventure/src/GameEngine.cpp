@@ -102,7 +102,6 @@ bool GameEngine::IsValidAttack(int attack_x, int attack_y, int victim_x, int vic
 	int a = (attack_x - victim_x) * (attack_x - victim_x);
 	int b = (attack_y - victim_y) * (attack_y - victim_y);
 	int distance = sqrt(a + b);
-	std::cout << distance << std::endl;
 	if ((distance <= battlefield[attack_x][attack_y]->GetAttackRange()) && !(distance <= 0)) {
 		return true;
 	}
@@ -117,8 +116,7 @@ bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int vic
 		int damage = 0;
 		if (is_strong_attack) {
 			damage = battlefield[attack_x][attack_y]->StrongAttack();
-		}
-		else {
+		} else {
 			damage = battlefield[attack_x][attack_y]->Attack();
 		}
 
@@ -159,8 +157,7 @@ void GameEngine::SetUpBlockedLocations() {
 		col_number++;
 		if (i % 2 == 0) {
 			row_number++;
-		}
-		else {
+		} else {
 			row_number--;
 		}
 	}
@@ -173,8 +170,7 @@ void GameEngine::SetUpBlockedLocations() {
 		col_number++;
 		if (i % 2 == 0) {
 			row_number--;
-		}
-		else {
+		} else {
 			row_number++;
 		}
 	}
