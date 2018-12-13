@@ -48,6 +48,7 @@ private:
 	void CheckCharactedClicked(int x, int y); // checks if a character was clicked
 	void DrawRocks(); // draws rocks on the map
 	void DrawAttackAnimation(int x, int y); // animation that occurs when unit is attacked
+	void DrawTurnDisplay(); // shows which team's turn it is. heroes or enemies.
 
 public:
 	void setup();

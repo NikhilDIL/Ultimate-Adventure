@@ -61,18 +61,7 @@ void ofApp::draw() {
 	special_attack.draw();
 	pass_turn.draw();
 
-	// display turn
-	if (turn == HERO_TURN) {
-		phase.drawString("HERO TURN", 260, 125);
-	} else if (turn == ENEMY_TURN) {
-		phase.drawString("ENEMY TURN", 235, 125);
-	} else {
-		if (total_heroes > total_enemies) {
-			phase.drawString("HEROES WIN!", 235, 125);
-		} else {
-			phase.drawString("ENEMIES WIN!", 215, 125);
-		}
-	}
+	DrawTurnDisplay(); // displays the current turn
 
 	// display character information
 	if (current_character != -1) {
@@ -342,4 +331,21 @@ void ofApp::DrawRocks() {
 void ofApp::DrawAttackAnimation(int x, int y) {
 	ofSetColor(255, 0, 0);
 	ofDrawRectangle(x, y, 50, 50);
+}
+
+void ofApp::DrawTurnDisplay() {
+	if (turn == HERO_TURN) {
+		phase.drawString("HERO TURN", 260, 125);
+	}
+	else if (turn == ENEMY_TURN) {
+		phase.drawString("ENEMY TURN", 235, 125);
+	}
+	else {
+		if (total_heroes > total_enemies) {
+			phase.drawString("HEROES WIN!", 235, 125);
+		}
+		else {
+			phase.drawString("ENEMIES WIN!", 215, 125);
+		}
+	}
 }
