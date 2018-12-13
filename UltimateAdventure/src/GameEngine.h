@@ -22,7 +22,6 @@ public:
 	GameEngine(); // constructor
 	~GameEngine(); // destructor
 	GameEngine(const std::vector<Character*> &characters); // takes in a character array and initializes battlefield with characters
-	void MoveCharacters(); // function to move the characters on the board
 	bool MoveCharacter(int direction, int character_index); // move a single character on the board.
 	bool IsValidMove(Direction direction, int character_index); // check if the move in that direction is valid
 	bool IsValidAttack(int attack_x, int attack_y, int victim_x, int victim_y, int character_range); // method that checks if a battle between two units can occur

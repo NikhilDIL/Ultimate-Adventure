@@ -24,41 +24,37 @@ GameEngine::GameEngine(const std::vector<Character*> &characters) {
 
 GameEngine::~GameEngine() {}
 
-void GameEngine::MoveCharacters() {}
-
 bool GameEngine::IsValidMove(Direction direction, int character_index) {
 	// CHECK IF CHARACTER HAS ANY MOVES LEFT FOR THE TURN.
 	// get current row and column location of character
-	int currRow = character_list[character_index]->GetRow();
-	int currCol = character_list[character_index]->GetCol();
+	int curr_row = character_list[character_index]->GetRow();
+	int curr_col = character_list[character_index]->GetCol();
 
 	switch (direction) {
 		case RIGHT:
-			currCol++;
+			curr_col++;
 			break;
 		case LEFT:
-			currCol--;
+			curr_col--;
 			break;
 		case DOWN:
-			currRow++;
+			curr_row++;
 			break;
 		case UP:
-			currRow--;
+			curr_row--;
 			break;
 	}
 
 	// check if out of bounds
-	if ((currRow >= kRowSize) || (currRow < 0)) {
+	if ((curr_row >= kRowSize) || (curr_row < 0)) {
 		return false;
-	}
-	else if ((currCol >= kColSize) || (currCol < 0)) {
+	} else if ((curr_col >= kColSize) || (curr_col < 0)) {
 		return false;
 	}
 	// if there's a character or obstacle at that location, return false.
-	if (battlefield[currRow][currCol] != nullptr) {
+	if (battlefield[curr_row][curr_col] != nullptr) {
 		return false;
-	}
-	else if (IsBlockedLocation(currRow, currCol)) { // if there's a obstacle in that position, return false
+	} else if (IsBlockedLocation(curr_row, curr_col)) { // if there's a obstacle in that position, return false
 		return false;
 	}
 	return true;
@@ -69,34 +65,34 @@ bool GameEngine::IsValidMove(Direction direction, int character_index) {
 // If that move can be made then do the move and return true
 // else just return false
 bool GameEngine::MoveCharacter(int direction, int character_index) {
-	int currRow = character_list[character_index]->GetRow();
-	int currCol = character_list[character_index]->GetCol();
+	int curr_row = character_list[character_index]->GetRow();
+	int curr_col = character_list[character_index]->GetCol();
 	int val = 0;
 
 	// update the location of character in battlefield
 	switch (direction) {
 		case RIGHT:
-			val = currCol + 1;
+			val = curr_col + 1;
 			character_list[character_index]->SetCol(val);
-			battlefield[currRow][val] = battlefield[currRow][currCol];
+			battlefield[curr_row][val] = battlefield[curr_row][curr_col];
 			break;
 		case LEFT:
-			val = currCol - 1;
+			val = curr_col - 1;
 			character_list[character_index]->SetCol(val);
-			battlefield[currRow][val] = battlefield[currRow][currCol];
+			battlefield[curr_row][val] = battlefield[curr_row][curr_col];
 			break;
 		case DOWN: 
-			val = currRow + 1;
+			val = curr_row + 1;
 			character_list[character_index]->SetRow(val);
-			battlefield[val][currCol] = battlefield[currRow][currCol];
+			battlefield[val][curr_col] = battlefield[curr_row][curr_col];
 			break;
 		case UP: 
-			val = currRow - 1;
+			val = curr_row - 1;
 			character_list[character_index]->SetRow(val);
-			battlefield[val][currCol] = battlefield[currRow][currCol];
+			battlefield[val][curr_col] = battlefield[curr_row][curr_col];
 			break;
 	}
-	battlefield[currRow][currCol] = nullptr; // set old location to nullptr
+	battlefield[curr_row][curr_col] = nullptr; // set old location to nullptr
 
 	return true;
 }
@@ -136,11 +132,7 @@ bool GameEngine::ConductBattle(int attack_x, int attack_y, int victim_x, int vic
 		}
 		int new_health = victim_health - damage;
 		battlefield[victim_x][victim_y]->SetHealth(new_health);
-		std::cout << "new_health " << battlefield[victim_x][victim_y]->GetHealth() << std::endl;
 
-		if (battlefield[victim_x][victim_y]->GetHealth() <= 0) {
-			std::cout << "This man has been killed" << std::endl;
-		}
 		return true;
 	}
 
