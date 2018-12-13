@@ -2,6 +2,11 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
+	current_character = -1; 
+	selected_character = -1;
+	is_successful_attack = false;
+	total_heroes = 3;
+	total_enemies = 3;
 	// initialize heroes and enemies
 	InitHeroes();
 	InitEnemies();
@@ -26,7 +31,11 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-
+	// check if all enemies or heroes are killed
+	if ((total_enemies == 0) || (total_heroes == 0)) {
+		turn = GAME_OVER;
+		current_character = -1;
+	}
 }
 
 //--------------------------------------------------------------
@@ -57,6 +66,12 @@ void ofApp::draw() {
 		phase.drawString("HERO TURN", 260, 125);
 	} else if (turn == ENEMY_TURN) {
 		phase.drawString("ENEMY TURN", 235, 125);
+	} else {
+		if (total_heroes > total_enemies) {
+			phase.drawString("HEROES WIN!", 235, 125);
+		} else {
+			phase.drawString("ENEMIES WIN!", 215, 125);
+		}
 	}
 
 	// display character information
@@ -219,6 +234,11 @@ void ofApp::CharacterBattle(bool is_strong_attack) {
 			is_successful_attack = true;
 		}
 		if (units[selected_character]->GetHealth() <= 0) { // if victim's health is <= 0, remove character from field
+			if (units[selected_character]->GetType() == 'H') { // if the victim that was killed is a hero, decrement total_heroes
+				total_heroes--;
+			} else {
+				total_enemies--;
+			}
 			delete units[selected_character]; // remove character from graphical
 			units[selected_character] = nullptr;
 			engine->RemoveCharacter(victim_x, victim_y, selected_character); // removes character from battlefield array
@@ -228,6 +248,9 @@ void ofApp::CharacterBattle(bool is_strong_attack) {
 }
 
 bool ofApp::IsButtonPressed(int x, int y) {
+	if (turn == GAME_OVER) {
+		return false;
+	}
 	if (current_character != -1) {
 		// BUTTON PRESSED
 		if (attack_button.IsClicked(x, y)) {
@@ -269,6 +292,9 @@ bool ofApp::IsButtonPressed(int x, int y) {
 }
 
 void ofApp::CheckCharactedClicked(int x, int y) {
+	if (turn == GAME_OVER) {
+		return;
+	}
 	// CHARACTER PRESSED
 	for (int i = 0; i < units.size(); i++) {
 		if (units[i] != nullptr) {

@@ -22,9 +22,11 @@ private:
 	// CORRECT VERSION
 	GameEngine *engine;
 	std::vector<Character*> units;
-	int current_character = -1; // character the player has selected to give commands to
-	int selected_character = -1; // character of the opposing team
-	bool is_successful_attack = false;
+	int current_character; // character the player has selected to give commands to
+	int selected_character; // character of the opposing team
+	bool is_successful_attack;
+	int total_heroes;
+	int total_enemies;
 
 	// all buttons in game
 	Button attack_button;
@@ -36,16 +38,16 @@ private:
 	TeamTurn turn; // current team's turn
 
 	// My Helper Methods
-	void InitButtons();
-	void InitHeroes();
-	void InitEnemies();
-	void ResetCharacters(TeamTurn turn);
-	void DrawInformationDisplayBox(int x, int y, char type);
-	void CharacterBattle(bool is_strong_attack);
-	bool IsButtonPressed(int x, int y);
-	void CheckCharactedClicked(int x, int y);
-	void DrawRocks();
-	void DrawAttackAnimation(int x, int y);
+	void InitButtons(); // initializes the buttons
+	void InitHeroes(); // initializes the heroes
+	void InitEnemies(); // initializes the enemies
+	void ResetCharacters(TeamTurn turn); // resets characters depending on the turn
+	void DrawInformationDisplayBox(int x, int y, char type); // displays character statistics
+	void CharacterBattle(bool is_strong_attack); // conducts battle between two characters
+	bool IsButtonPressed(int x, int y); // checks if a button was pressed
+	void CheckCharactedClicked(int x, int y); // checks if a character was clicked
+	void DrawRocks(); // draws rocks on the map
+	void DrawAttackAnimation(int x, int y); // animation that occurs when unit is attacked
 
 public:
 	void setup();
