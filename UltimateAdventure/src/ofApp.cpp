@@ -40,47 +40,52 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	// draw graphical battlefield
-	ofSetColor(255, 255, 255);
-	ground.load("stone.jpg");
-	ground.resize(500, 500);
-	ground.draw(200, 150);
-	DrawRocks();
+	if (turn != GAME_OVER) {
+		// draw graphical battlefield
+		ofSetColor(255, 255, 255);
+		ground.load("stone.jpg");
+		ground.resize(500, 500);
+		ground.draw(200, 150);
+		DrawRocks();
 
-	// draw units
-	for (Character* character : units) {
-		if (character != nullptr) {
-			character->Draw();
+		// draw units
+		for (Character* character : units) {
+			if (character != nullptr) {
+				character->Draw();
+			}
 		}
-	}
 
-	// draw buttons
-	attack_button.draw();
-	defense_button.draw();
-	special_skill.draw();
-	special_attack.draw();
-	pass_turn.draw();
+		// draw buttons
+		attack_button.draw();
+		defense_button.draw();
+		special_skill.draw();
+		special_attack.draw();
+		pass_turn.draw();
 
-	DrawTurnDisplay(); // displays the current turn
+		DrawTurnDisplay(); // displays the current turn
 
-	// display character information
-	if (current_character != -1) {
-		DrawInformationDisplayBox(15, 180, units[current_character]->GetType());
-		units[current_character]->DisplayInformation(20, 200);
-	} 
-	if (selected_character != -1) {
-		DrawInformationDisplayBox(15, 400, units[selected_character]->GetType());
-		units[selected_character]->DisplayInformation(20, 420);
-	}
-
-	// small animation whenever a character is attacked
-	if (is_successful_attack) { 
+		// display character information
+		if (current_character != -1) {
+			DrawInformationDisplayBox(15, 180, units[current_character]->GetType());
+			units[current_character]->DisplayInformation(20, 200);
+		}
 		if (selected_character != -1) {
-			int x = units[selected_character]->getGraphicalX();
-			int y = units[selected_character]->getGraphicalY();
-			DrawAttackAnimation(x, y);
+			DrawInformationDisplayBox(15, 400, units[selected_character]->GetType());
+			units[selected_character]->DisplayInformation(20, 420);
 		}
-	}	
+
+		// small animation whenever a character is attacked
+		if (is_successful_attack) {
+			if (selected_character != -1) {
+				int x = units[selected_character]->getGraphicalX();
+				int y = units[selected_character]->getGraphicalY();
+				DrawAttackAnimation(x, y);
+			}
+		}
+	} else {
+		ofSetColor(255, 255, 255);
+		DrawTurnDisplay();
+	}
 }
 
 //--------------------------------------------------------------
@@ -342,10 +347,16 @@ void ofApp::DrawTurnDisplay() {
 	}
 	else {
 		if (total_heroes > total_enemies) {
-			phase.drawString("HEROES WIN!", 235, 125);
+			phase.drawString("HEROES WIN!", 235, 300);
 		}
 		else {
-			phase.drawString("ENEMIES WIN!", 215, 125);
+			phase.drawString("ENEMIES WIN!", 215, 300);
+		}
+		for (int i = 0; i < units.size(); i++) {
+			if (units[i] != nullptr) {
+				delete units[i];
+				units[i] = nullptr;
+			}
 		}
 	}
 }
