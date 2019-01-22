@@ -1,5 +1,4 @@
-# Final Project
-Ultimate Adventure
+# Ultimate Adventure
 
 The libraries that I ended up using for this project are the following:
 1. ofImage
